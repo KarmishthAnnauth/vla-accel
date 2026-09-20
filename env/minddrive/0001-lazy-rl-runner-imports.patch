@@ -1,0 +1,24 @@
+--- mmcv/runner/iter_based_runner.py
++++ mmcv/runner/iter_based_runner.py
+@@ -23,14 +23,18 @@
+ import os
+ from tabulate import tabulate
+ 
+-from team_code.carla_env.carla_env_scenario import CarlaScenarioEnv, TickRuntimeError
++try:
++    from team_code.carla_env.carla_env_scenario import CarlaScenarioEnv, TickRuntimeError
++    from rl_projects.leaderboard.utils.result_writer import ResultOutputProvider
++    from rl_projects.utils.carla_utils import kill_existing_carla, launch_carla
++except ImportError as _rl_import_error:  # noqa: F841
++    CarlaScenarioEnv = TickRuntimeError = ResultOutputProvider = None
++    kill_existing_carla = launch_carla = None
+ 
+ from mmcv.parallel.collate import collate as mm_collate_to_batch_form
+ import copy
+-from rl_projects.leaderboard.utils.result_writer import ResultOutputProvider
+ import pickle
+ import torch.nn.functional as F
+-from rl_projects.utils.carla_utils import kill_existing_carla, launch_carla
+ hostname = socket.gethostname()
+ def tensor_to_device(data, device):
+     if isinstance(data, torch.Tensor):

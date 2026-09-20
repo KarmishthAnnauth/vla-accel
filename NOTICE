@@ -1,0 +1,49 @@
+VLA inference acceleration — SimLingo, ORION, MindDrive
+Copyright 2026 Karmishth Annauth
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This work builds on the following projects. It does not redistribute their
+code: the model checkouts are supplied by the user and imported at runtime.
+The exceptions are noted below.
+
+  ORION            Apache License 2.0
+                   https://github.com/xiaomi-mlab/Orion
+                   Referenced only. The speedups in
+                   ros2_ws/src/orion_ros/orion_ros/orion_speedups.py are
+                   post-build transforms applied to the instantiated model;
+                   no ORION source is copied or modified.
+
+  MindDrive        Apache License 2.0
+                   Referenced only, except that
+                   env/minddrive/0001-lazy-rl-runner-imports.patch and
+                   env/minddrive/0002-fp16-qwen-load.patch contain short
+                   context excerpts of MindDrive's mmcv sources, as unified
+                   diffs necessarily do.
+
+  SimLingo         Apache License 2.0
+                   https://github.com/RenzKa/simlingo
+                   Referenced only, except that
+                   simlingo_patch/0001-nav-planner-no-carla.patch contains a
+                   short context excerpt of team_code/nav_planner.py.
+                   simlingo_patch/simlingo_training/models/fast_inference.py
+                   is original work that attaches to SimLingo's DrivingModel.
+
+  Orion-Lite       No license file is published upstream, so all rights are
+                   reserved by its authors. This repository only references
+                   it (orion_lite_rosnode.py, orion_lite.launch.py) and
+                   copies none of it. Obtain permission from the authors
+                   before using that path.
+
+  Bench2Drive      CC BY-NC-ND 4.0
+                   Not redistributed here. The ROS nodes import
+                   team_code.pid_controller from the user's own checkout
+                   rather than vendoring it, so no Bench2Drive code is
+                   present in this repository.
+
+  SimLingo dataset Non-commercial licence (Wayve Technologies Ltd).
+                   Not redistributed here.
+
+Sample camera frames in assets/frames/ are renders captured from the CARLA
+simulator. They are used only as fixed input for the numerical parity checks;
+the benches fall back to seeded random images when they are absent.

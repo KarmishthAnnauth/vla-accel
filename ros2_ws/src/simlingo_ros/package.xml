@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>simlingo_ros</name>
+  <version>0.1.0</version>
+  <description>ROS 2 nodes for running SimLingo VLA inference and driving CARLA with SimLingo's own PID controller.</description>
+  <maintainer email="user@example.com">user</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>autoware_planning_msgs</depend>
+  <depend>carla_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>ackermann_msgs</depend>
+  <depend>python3-scipy</depend>
+
+  <test_depend>ament_pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

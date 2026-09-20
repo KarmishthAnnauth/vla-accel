@@ -1,0 +1,25 @@
+# Build artefacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+install/
+log/
+.colcon_*
+
+# Architecture-locked, must be rebuilt per device (see PORTING.md §1)
+.torchinductor_cache/
+*.plan
+*.onnx
+engines/
+
+# Weights, calibration tensors and captured references: too large for git
+*.pth
+*.pt
+*.ckpt
+*.npz
+!reference_results/**/*.npz
+
+# Local run output
+*.csv
+control_trace_*.csv

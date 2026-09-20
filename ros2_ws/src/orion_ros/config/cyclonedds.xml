@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CycloneDDS tuning for receiving the 6x 5.76 MB (900x1600 bgra8) CARLA camera
+  streams across the network into this container.
+
+  Problem this fixes: each frame fragments into thousands of UDP datagrams. With
+  the default ~256 KB socket receive buffer, a 5.76 MB burst overflows the buffer
+  and drops fragments. A RELIABLE reader then stalls forever on the first sample
+  whose fragment was permanently lost (writer history already moved on), so the
+  subscription wedges at one stamp even though the publisher keeps going.
+
+  Enlarging SocketReceiveBufferSize lets the kernel hold a whole multi-MB burst
+  so fragments aren't dropped in the first place. NOTE: this is capped by the OS
+  limit, so you MUST also raise it on the host:
+      sudo sysctl -w net.core.rmem_max=2147483647
+
+  Use it by pointing CycloneDDS at this file before launching any node:
+      export CYCLONEDDS_URI=file:///<abs-path>/config/cyclonedds.xml
+-->
+<CycloneDDS xmlns="https://cdds.io/config"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+  <Domain Id="any">
+    <Internal>
+      <!-- Hold a full multi-MB camera burst instead of dropping fragments. -->
+      <SocketReceiveBufferSize min="64 MB"/>
+    </Internal>
+  </Domain>
+</CycloneDDS>

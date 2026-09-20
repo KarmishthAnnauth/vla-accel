@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>orion_ros</name>
+  <version>0.1.0</version>
+  <description>ROS 2 node for running ORION VLA inference on live CARLA camera + odometry topics and publishing an Autoware trajectory.</description>
+  <maintainer email="user@example.com">orion_ros maintainer</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>ackermann_msgs</depend>
+  <depend>autoware_planning_msgs</depend>
+  <depend>builtin_interfaces</depend>
+  <depend>carla_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <test_depend>ament_pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

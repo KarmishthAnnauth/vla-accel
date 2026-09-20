@@ -1,0 +1,14 @@
+--- team_code/nav_planner.py
++++ team_code/nav_planner.py
+@@ -14,7 +14,10 @@ from scipy.interpolate import interp1d
+ import time
+ from scipy.spatial import cKDTree
+ 
+-from agents.navigation.global_route_planner import GlobalRoutePlanner
++try:
++    from agents.navigation.global_route_planner import GlobalRoutePlanner
++except ImportError:
++    GlobalRoutePlanner = None
+ 
+ class PIDController(object):
+     """
