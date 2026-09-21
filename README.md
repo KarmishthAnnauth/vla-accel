@@ -12,6 +12,9 @@ ROS2 node implementations of VLAs and their inference optimization for near real
 | **ORION** (EVA-ViT-L + LLaVA-LLaMA-7B) | 2030 ms/frame | **~1000 ms/frame** | **~2.0×** | < 1 cm |
 | **MindDrive** (EVA-ViT + LLaVA-Qwen2.5-3B, 2 experts) | 2318 ms/frame (fp32) | **874 ms/frame** | **2.65×** | 0.05–0.09 m |
 
+
+**More models will be implemented into ROS2 nodes + optimization in the future**
+
 Note: Documentation on how the optimizations were achieved will be made shortly.
 
 ---
