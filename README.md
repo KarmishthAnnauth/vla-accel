@@ -1,4 +1,4 @@
-# VLA inference acceleration — SimLingo, ORION, MindDrive, ReCogDrive
+# VLA inference acceleration on Edge Device 
 
 Everything needed to reproduce the inference-latency work on four
 vision-language-action driving models, packaged so it can be re-run on a
