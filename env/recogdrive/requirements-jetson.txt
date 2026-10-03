@@ -1,0 +1,17 @@
+# The CUDA builds for JetPack 6 / CUDA 12.6, cp310, from the jetson-ai-lab index
+# (https://pypi.jetson-ai-lab.io/jp6/cu126).  Pinned by URL + hash: that index
+# also mirrors PyPI, and given a bare "torch==2.10.0" uv prefers PyPI's
+# manylinux CPU wheel (2.10.0+cpu) over this linux_aarch64 one.
+#
+# torch 2.10 + triton 3.6.0: recogdrive_dit.py wraps `modulate` in
+# @torch.compile, so inductor needs a working triton.  flash-attn 2.8.3:
+# RecogDriveBackbone loads the VLM with use_flash_attn=True.  Checked on the
+# Orin (2026-10-02): CUDA available, flash_attn_func matches SDPA, a
+# @torch.compile'd function runs through triton on the GPU.
+torch @ https://pypi.jetson-ai-lab.io/jp6/cu126/+f/37d/7e156cfb4a646/torch-2.10.0-cp310-cp310-linux_aarch64.whl#sha256=37d7e156cfb4a646c4d7347597727db1529d184108f703324dfff1842cec094e
+torchvision @ https://pypi.jetson-ai-lab.io/jp6/cu126/+f/1b6/357c5532db61e/torchvision-0.25.0-cp310-cp310-linux_aarch64.whl#sha256=1b6357c5532db61e9bfe7ad69f73ba73e8214010de021da703d360d2cc16c3d7
+triton @ https://pypi.jetson-ai-lab.io/jp6/cu126/+f/e68/f6e7348753f16/triton-3.6.0-cp310-cp310-linux_aarch64.whl#sha256=e68f6e7348753f168980f2d717fa28d37b47dad1a8892bb7078cf551fee27a98
+flash-attn @ https://pypi.jetson-ai-lab.io/jp6/cu126/+f/1c0/6dc9955d4be23/flash_attn-2.8.3-cp310-cp310-linux_aarch64.whl#sha256=1c06dc9955d4be2360884ec439f088c9f5c9e679f1958f193fed3d024100da4e
+# The ReCogDrive repo's pin (requirements.txt); also what ROS 2 Humble's
+# Python bindings are built against.
+numpy==1.26.4

@@ -1,0 +1,35 @@
+FastReCogDrive: bit-identical replacements in use: llm gate_proj, llm up_proj, llm down_proj, rope, silu-gate, rmsnorm, vit qkv, vit fc1, vit fc2, vit layer-scale, vit encoder loop
+FastReCogDrive: planner step compiled (max deviation from eager 9.5e-07, normalised action units)
+FastReCogDrive ready: 291 prefix tokens cached, window 2536 tokens, planner context 2827, CUDA graphs captured in 6.9 s
+fast path built in 15.1 s; GPU 7.85 GB allocated, 8.93 GB reserved
+case                               tokens  pads | hidden max|d|  mean|d|   cos    | traj max|d| xy [m]  heading [rad] | pixels
+carla_0.bmp v= 0.0 straight yaw=+0.00   2784   16 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_1.bmp v= 5.0 straight yaw=+0.00   2787   13 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_2.bmp v= 8.0 left     yaw=+0.25   2792    8 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_0.bmp v=12.0 right    yaw=-0.20   2793    7 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_1.bmp v=20.0 straight yaw=+0.03   2795    5 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_2.bmp v=33.0 left     yaw=+0.40   2795    5 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_0.bmp v=55.0 right    yaw=-0.75   2796    4 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_1.bmp v=80.0 left     yaw=+2.50   2797    3 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+carla_2.bmp v=95.0 right    yaw=-2.90   2796    4 |    0.0000    0.00000  1.000000 |       0.0000          0.00000    | identical
+      padding rows: max|d| 0.00000
+worst trajectory deviation: 0.0000 m, 0.00000 rad
+for scale: the reference's own seed-to-seed spread on one input is 0.528 m (diffusion sampling noise)
+FastReCogDrive: input outside the fast path (tile grid or prompt length); such frames use the reference path
+4:3 frame: fast.plan -> None, compute_trajectory used the reference (same result; fallbacks=1)
+frame passed as array vs read from file: bit-identical
+verify(): {'covered': 1.0, 'hidden_max_abs': 0.0, 'trajectory_max_abs': 3.814697265625e-06}
+repeat after a different-length prompt: bit-identical
+fast : mean   613.8 ms  sd 1.6  min 611.2  max 617.2   (gpu 1300 MHz)
+       stages: image=22.7  vit=279.5  llm=283.2  planner=28.2
+ref  : mean  1248.5 ms  sd 11.6  min 1242.2  max 1283.0
+speedup 2.03x
+GPU peak 11.78 GB

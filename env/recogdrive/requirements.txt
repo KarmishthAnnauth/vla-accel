@@ -1,0 +1,29 @@
+# Python packages ReCogDrive's inference imports, installed by setup_venv.sh
+# with the resolver ON and requirements-jetson.txt as constraints holding the
+# Jetson torch, torchvision and numpy in place.
+#
+# The versions are the ReCogDrive repo's own pins where it has one
+# (internvl_chat/internvl_chat.txt for the VLM side, requirements.txt for
+# numpy); the rest are the versions that were tested here (2026-10-02).
+
+# --- the InternVL backbone (internvl_chat/internvl_chat.txt) ---
+transformers==4.37.2
+tokenizers==0.15.1
+accelerate==0.34.2          # the repo says accelerate<1; device_map loading
+peft==0.10.0                # modeling_internvl_chat.py imports it at module level
+timm==0.9.12                # DropPath (backbone), Mlp (planner)
+einops==0.6.1
+sentencepiece==0.1.99       # the repo's pin
+
+# --- the diffusion planner and navsim ---
+diffusers==0.31.0           # recogdrive_dit: TimestepEmbedding, Timesteps
+pytorch-lightning==2.6.6    # navsim/agents/abstract_agent.py
+omegaconf==2.3.0            # recogdrive_agent.py
+pyquaternion==0.9.9         # navsim/common/dataclasses.py
+# In the repo's requirements.txt unpinned; imported by the nuplan chain.  In
+# the venv so Ubuntu's builds (compiled for numpy 1.21) are not picked up.
+scipy==1.15.3
+matplotlib==3.10.9
+
+# --- the ROS node ---
+opencv-python-headless==4.10.0.84

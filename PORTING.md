@@ -161,3 +161,39 @@ Diff step 3's output against `reference_results/`.
   times per forward, so graph-owned output tensors get overwritten. That will
   still be true on Thor. MindDrive's `graph_vit()` captures only the
   static-shape ViT, which is safe.
+
+---
+
+## ReCogDrive
+
+ReCogDrive runs from a venv, not a container (`env/recogdrive`), so its port is
+separate from the image rebuilds above.
+
+1. **Wheels.** `env/recogdrive/requirements-jetson.txt` pins torch 2.10,
+   torchvision, triton 3.6 and flash-attn 2.8.3 for JetPack 6 / CUDA 12.6 /
+   Python 3.10 by URL. All four lines change for Thor. Two things to re-check
+   with the new wheels: that a bare `torch==X` does not resolve to PyPI's CPU
+   build, and whether the triton wheel still lacks `cuda.h` and `ptxas`
+   (`setup_venv.sh` copies them from the system CUDA).
+2. **Bit-exactness is a property of this device's libraries.** The fast path is
+   bit-identical to the reference on the Orin because (a) cached rows are taken
+   from a 2800-row pass, and cuBLAS rounds a bf16 row the same way for any batch
+   of 291–2816 rows, and (b) the fused kernels reproduce eager's rounding
+   points. Neither boundary is guaranteed on another GPU or cuBLAS build.
+   Nothing needs to be changed by hand: every replaced op is compared against
+   the stock op at start-up and dropped if a bit differs, and the node logs the
+   difference to the reference on its warm-up frame. Read those two log lines
+   first. `bench/recogdrive/rowdep.py` and `castprobe.py` show where the
+   boundaries are on the new device.
+3. **`F.linear` vs a pre-transposed weight.** The 1.8× on `down_proj` is a
+   cuBLAS bf16 behaviour on the Orin. `fusebench2.py` re-measures it; if it is
+   gone on Thor the transposed copies cost 2.7 GB for nothing (`fuse=False`).
+4. **The matmul ceiling.** Both transformers run at the Orin's ~35 TFLOP/s bf16
+   ceiling, so the remaining time scales with the GPU. `microbench.py` prints
+   the ceiling; re-derive the conclusions about TensorRT and INT8 from Thor's.
+5. **TensorRT engines** are device- and version-locked. Rebuild with
+   `trt_vit.py` / `vit_int8.py`; re-check with `trt_qdq_probe.py` that Q/DQ
+   matmuls actually run in INT8, and re-calibrate on real driving frames (the
+   Orin engine was calibrated on three).
+6. **The inductor cache** (`TORCHINDUCTOR_CACHE_DIR` in
+   `scripts/start_recogdrive.sh`) must not be copied over.

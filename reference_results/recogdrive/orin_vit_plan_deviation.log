@@ -1,0 +1,6 @@
+12 cases (3 frames x 4 ego states); deviation of the planned xy from the reference plan, same noise
+reference, other noise (scale)     mean 0.199 m | final-pose mean 0.389 max 0.802 m | worst pose 0.802 m | heading max 0.0542 rad
+fast path, PyTorch ViT (exact)     mean 0.000 m | final-pose mean 0.000 max 0.000 m | worst pose 0.000 m | heading max 0.0000 rad
+vit_fp16.engine                    mean 0.078 m | final-pose mean 0.167 max 0.581 m | worst pose 0.701 m | heading max 0.0283 rad
+vit_qdq_a08_sel.engine             mean 0.125 m | final-pose mean 0.235 max 0.781 m | worst pose 0.801 m | heading max 0.0790 rad
+vit_qdq_all.engine                 mean 0.326 m | final-pose mean 0.770 max 1.997 m | worst pose 1.997 m | heading max 0.1781 rad

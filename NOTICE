@@ -1,4 +1,4 @@
-VLA inference acceleration — SimLingo, ORION, MindDrive
+VLA inference acceleration — SimLingo, ORION, MindDrive, ReCogDrive
 Copyright 2026 Karmishth Annauth
 
 Licensed under the Apache License, Version 2.0. See LICENSE.
@@ -29,6 +29,16 @@ The exceptions are noted below.
                    simlingo_patch/simlingo_training/models/fast_inference.py
                    is original work that attaches to SimLingo's DrivingModel.
 
+  ReCogDrive       Apache License 2.0
+                   https://github.com/xiaomi-research/recogdrive
+                   Referenced only. recogdrive_speedups.py wraps the built
+                   ReCogDriveAgent and calls its sub-modules; where it
+                   restates a few lines of the agent's prompt construction
+                   and the planner's DDIM step, it does so to reproduce them
+                   exactly. ReCogDrive builds on NAVSIM (Apache License 2.0)
+                   and InternVL (MIT License), neither of which is
+                   redistributed here.
+
   Orion-Lite       No license file is published upstream, so all rights are
                    reserved by its authors. This repository only references
                    it (orion_lite_rosnode.py, orion_lite.launch.py) and
@@ -39,7 +49,8 @@ The exceptions are noted below.
                    Not redistributed here. The ROS nodes import
                    team_code.pid_controller from the user's own checkout
                    rather than vendoring it, so no Bench2Drive code is
-                   present in this repository.
+                   present in this repository. recogdrive_ros loads the same
+                   file from that checkout by path (pid_controller_dir).
 
   SimLingo dataset Non-commercial licence (Wayve Technologies Ltd).
                    Not redistributed here.

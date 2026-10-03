@@ -27,3 +27,14 @@ those tables are the reference.
 
 Re-running either bench on Thor will produce JSON in the same shape as
 MindDrive's, so consider saving it here alongside.
+
+## ReCogDrive (`bench/recogdrive/`, 2026-10-03)
+
+| File | What it is |
+|---|---|
+| `recogdrive/orin_profile_baseline.json` / `.log` | Stage profile of the unmodified agent: 1260 ms, per stage and per run. |
+| `recogdrive/orin_fast_check.log` | Fast path vs reference on 9 cases with the same noise (hidden states and trajectories identical), fallback, repeatability, and speed: 614 ms vs 1249 ms. |
+| `recogdrive/orin_vit_engines.log` | TensorRT vision encoders: latency, feature error vs the bf16 reference, layer precisions. |
+| `recogdrive/orin_vit_plan_deviation.log` | What each of those encoders does to the planned trajectory, 12 cases, same noise. |
+| `recogdrive/orin_frame_timing.log` | Whole-frame time with the exact encoder and with the partial-INT8 engine. |
+| `recogdrive/orin_int8_calib_alpha0.5.log`, `..._alpha0.8.log` | INT8 calibration with rebalancing: simulated feature error per group of quantised layers, per-block sensitivity. |

@@ -1,0 +1,7 @@
+PyTorch bf16 eager extract_feature: 312.2 ms (fast path graph: ~280 ms)
+vit_fp16.engine                255.8 ms | vs bf16 reference: rel-L2 real frames 0.0399, held-out variants 0.0426; worst token cosine 0.7864
+     layers by (type, output dtype): kgen/Halfx73, gemm/Halfx49, fusion/Halfx49, kgen/Floatx25, Reformat/0x1, CaskConvolution/0x1, shape_call/?x1
+vit_qdq_a08_sel.engine         230.3 ms | vs bf16 reference: rel-L2 real frames 0.0524, held-out variants 0.0550; worst token cosine 0.7823
+     layers by (type, output dtype): kgen/Halfx115, fusion/Halfx70, kgen/Int8x42, gemm/Halfx28, kgen/Floatx4, Reformat/0x1, CaskConvolution/0x1, shape_call/?x1
+vit_qdq_all.engine             202.3 ms | vs bf16 reference: rel-L2 real frames 0.1833, held-out variants 0.1878; worst token cosine 0.5075
+     layers by (type, output dtype): kgen/Halfx119, fusion/Halfx73, kgen/Int8x50, gemm/Int8x25, Reformat/0x1, CaskConvolution/0x1, shape_call/?x1, kgen/Floatx1

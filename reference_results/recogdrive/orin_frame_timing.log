@@ -1,0 +1,2 @@
+PyTorch ViT (exact)          plan  619.9 ms  stages {'image': 30, 'vit': 279, 'llm': 282, 'planner': 28}  verify: hidden max|d| 0, traj max|d| 0.000
+vit_qdq_a08_sel.engine       plan  572.3 ms  stages {'image': 30, 'vit': 234, 'llm': 283, 'planner': 28}  verify: hidden max|d| 57.2, traj max|d| 0.232

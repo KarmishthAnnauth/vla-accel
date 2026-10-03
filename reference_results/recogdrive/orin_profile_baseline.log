@@ -1,0 +1,22 @@
+run 0: load_image=78 tokenize=32 vit+mlp1=514 llm_body=570 lm_head=84 planner=1661 wall=3374 other=435 gpu_mhz=1300
+run 1: load_image=89 tokenize=27 vit+mlp1=317 llm_body=511 lm_head=59 planner=279 wall=1320 other=38 gpu_mhz=1300
+run 2: load_image=85 tokenize=26 vit+mlp1=314 llm_body=506 lm_head=59 planner=279 wall=1309 other=38 gpu_mhz=1300
+run 3: load_image=85 tokenize=26 vit+mlp1=315 llm_body=499 lm_head=59 planner=274 wall=1298 other=38 gpu_mhz=1300
+run 4: load_image=68 tokenize=27 vit+mlp1=301 llm_body=489 lm_head=59 planner=274 wall=1256 other=38 gpu_mhz=1300
+run 5: load_image=67 tokenize=27 vit+mlp1=300 llm_body=489 lm_head=59 planner=274 wall=1253 other=37 gpu_mhz=1300
+run 6: load_image=67 tokenize=27 vit+mlp1=301 llm_body=491 lm_head=59 planner=273 wall=1255 other=37 gpu_mhz=1300
+run 7: load_image=68 tokenize=27 vit+mlp1=301 llm_body=489 lm_head=59 planner=274 wall=1257 other=38 gpu_mhz=1300
+run 8: load_image=67 tokenize=27 vit+mlp1=301 llm_body=490 lm_head=59 planner=273 wall=1255 other=38 gpu_mhz=1300
+run 9: load_image=68 tokenize=27 vit+mlp1=301 llm_body=491 lm_head=59 planner=272 wall=1255 other=38 gpu_mhz=1300
+run 10: load_image=70 tokenize=27 vit+mlp1=301 llm_body=490 lm_head=59 planner=275 wall=1259 other=37 gpu_mhz=1300
+run 11: load_image=68 tokenize=27 vit+mlp1=302 llm_body=489 lm_head=59 planner=273 wall=1255 other=37 gpu_mhz=1300
+mean over 9 runs (first 3 discarded):
+  load_image       69.8 ms    5.5 %  (sd 5.6)
+  tokenize         26.7 ms    2.1 %  (sd 0.2)
+  vit+mlp1        302.5 ms   24.0 %  (sd 4.5)
+  llm_body        490.9 ms   38.9 %  (sd 3.0)
+  lm_head          59.3 ms    4.7 %  (sd 0.0)
+  planner         273.5 ms   21.7 %  (sd 0.9)
+  wall           1260.4 ms  100.0 %  (sd 13.2)
+  other            37.6 ms    3.0 %  (sd 0.3)
+gpu clock 1300 MHz; GPU peak 7.66 GB

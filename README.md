@@ -1,10 +1,10 @@
-# VLA inference acceleration — SimLingo, ORION, MindDrive
+# VLA inference acceleration — SimLingo, ORION, MindDrive, ReCogDrive
 
-Everything needed to reproduce the inference-latency work on three
+Everything needed to reproduce the inference-latency work on four
 vision-language-action driving models, packaged so it can be re-run on a
 **Jetson AGX Thor**. All figures in here were measured on a **Jetson AGX Orin
-64 GB** (JetPack R36.4.7, clocks pinned) between September 12–18 2026; Thor is
-the port target, not yet measured.
+64 GB** (JetPack R36.4.7, clocks pinned) between September 12–18 2026
+(ReCogDrive: October 2–3 2026); Thor is the port target, not yet measured.
 
 **Nothing in this repo requires CARLA.** Every model's speedups are measured by
 a standalone bench that loads the checkpoint once and applies the optimisations
@@ -21,9 +21,10 @@ only needed for closed-loop driving scores, which are out of scope here.
 | **SimLingo** (InternVL2-1B + driving head) | 3538 ms/frame | **321 ms/frame** | **11.0×** | 0.028 m max route |
 | **ORION** (EVA-ViT-L + LLaVA-LLaMA-7B) | 2030 ms/frame | **~1000 ms/frame** | **~2.0×** | < 1 cm |
 | **MindDrive** (EVA-ViT + LLaVA-Qwen2.5-3B, 2 experts) | 2318 ms/frame (fp32) | **874 ms/frame** | **2.65×** | 0.05–0.09 m |
+| **ReCogDrive** (InternVL3-2B + diffusion planner) | 1255 ms/frame | **615 ms/frame** | **2.04×** | none: VLM bit-identical, plan ~1e-5 m |
 
-The three came apart in completely different places, which is the main reason
-all three are worth re-running on Thor rather than assuming the same recipe:
+The four came apart in completely different places, which is the main reason
+all of them are worth re-running on Thor rather than assuming the same recipe:
 
 - **SimLingo was not compute-bound at all.** Two multiplicative causes: the GPU
   governor sat at 31–63 % of peak clock, and the model's `greedy_sample` kept
@@ -40,6 +41,17 @@ all three are worth re-running on Thor rather than assuming the same recipe:
   activation outliers move the trajectory by a metre even with SmoothQuant,
   where ORION's LLaMA-7B took the same recipe at 0.03–0.05 m.
 
+- **ReCogDrive** generates no tokens and has no LoRA: one 2800-token prefill
+  feeds a diffusion planner. A fifth of the frame was a planner that was pure
+  launch overhead (283 → 28 ms under a CUDA graph), a twentieth was an LM head
+  whose logits nothing reads, and the LLM ran its matmuls at half the GPU's
+  rate because of how `F.linear` calls the bf16 GEMM. It is the only one of the
+  four where the fast path is **bit-identical** to the reference in the VLM,
+  which took two findings about bf16: a matmul rounds a row differently
+  depending on the batch's row count, and `torch.compile` drops intermediate
+  roundings. INT8 for the vision encoder through TensorRT works only with
+  explicit Q/DQ nodes and is opt-in (577 ms, plans shift 0.13 m on average).
+
 Full methodology, per-stage tables and the negative results are in the docs
 listed under each model below.
 
@@ -52,11 +64,14 @@ ros2_ws/src/
   orion_ros/          ORION + Orion-Lite: node, speedups, bench, tests, docs
   minddrive_ros/      MindDrive: node, speedups, bench, docs
   simlingo_ros/       SimLingo: node, PID/Stanley controllers, docs
+  recogdrive_ros/     ReCogDrive: node, speedups, PID control, tests, docs
 simlingo_patch/       files that must be dropped into a SimLingo checkout
 bench/simlingo/       SimLingo's standalone profiling + diagnosis scripts
+bench/recogdrive/     ReCogDrive's profiling, exactness and TensorRT / INT8 scripts
 assets/frames/        three real camera frames used by every parity check
-scripts/              container launchers (Orin paths; edit for Thor)
-env/                  Dockerfiles, image build scripts, upstream patches
+scripts/              launchers (Orin paths; edit for Thor)
+env/                  Dockerfiles, image build scripts, upstream patches;
+                      env/recogdrive is a venv (no container) + a memory guard
 reference_results/    Orin bench output, to diff Thor against
 ```
 
@@ -72,6 +87,7 @@ its compiled mmcv ops) stay exactly as they are.
 | ORION | `ros2_ws/src/orion_ros/orion_ros/orion_speedups.py` | 833 |
 | MindDrive | `ros2_ws/src/minddrive_ros/minddrive_ros/minddrive_speedups.py` | 1260 |
 | SimLingo | `simlingo_patch/simlingo_training/models/fast_inference.py` | 350 |
+| ReCogDrive | `ros2_ws/src/recogdrive_ros/recogdrive_ros/recogdrive_speedups.py` | 843 |
 
 SimLingo is the exception to the "no source edits" rule: its fast path replaces
 a method on `DrivingModel`, so it ships as a file that drops into the SimLingo
@@ -85,6 +101,7 @@ falls back to the unoptimised path if it fails (`fast_inference` parameter).
 | ORION | `orion_ros/tools/bench_orion.py` | Loads once (~200 s), applies 14 variants cumulatively, CUDA-event timing per stage (ViT / LLM / map head / det head / planner) + max Δ trajectory vs the untouched model |
 | MindDrive | `minddrive_ros/tools/bench_minddrive.py` | Same, 19 variants; fp32 and fp16 are separate invocations with `--ref-out`/`--ref-in` carrying the fp32 reference across, so fp16 is compared to the true reference and not to fp16 eager |
 | SimLingo | `bench/simlingo/simlingo_fast_check.py` | Correctness + speed of `fast_inference` against the untouched model on a node-shaped input |
+| ReCogDrive | `bench/recogdrive/fast_check.py` | Fast path vs the untouched agent with the same diffusion noise: hidden-state and trajectory difference, pixel equality, fallback, speed. `profile_baseline.py` for the stage profile |
 
 Plus, per model, an end-to-end path with no simulator:
 
@@ -95,6 +112,9 @@ Plus, per model, an end-to-end path with no simulator:
   `CarlaRoute`, so the full decision→control loop runs.
 - `bench/simlingo/simlingo_fake_cam.py` — compressed RGB at 10 Hz matching the
   real CARLA stream.
+- `recogdrive_ros/tools/fake_carla_topics.py` — one 1920×1080 camera, odometry,
+  speed, IMU and a `CarlaRoute`; `tools/control_listener.py` summarises what
+  the in-node PID commands.
 
 And the diagnosis scripts that found the SimLingo causes, kept because the same
 questions will be worth asking on Thor:
@@ -162,6 +182,9 @@ docker exec minddrive_ros bash -c '... bench_minddrive.py --precision fp16 \
 
 # SimLingo
 docker exec sim_ros python3 /benchmarking/bench/simlingo/simlingo_fast_check.py
+
+# ReCogDrive (no container: a venv, see env/recogdrive)
+cd bench/recogdrive && python3 make_frames.py && ./run.sh fast_check.py
 ```
 
 Compare the result against `reference_results/` and the tables in the docs.
@@ -184,6 +207,7 @@ python3 .../tools/fake_carla_topics.py 45         # duration_s [hz]
 | `ros2_ws/src/orion_ros/ORION_ROS_NODE.md` | ORION node contract, parameters, §6 speedup tables, TensorRT and INT8 negative results |
 | `ros2_ws/src/minddrive_ros/MINDDRIVE_ROS_NODE.md` | MindDrive equivalent, incl. the full INT8 / SmoothQuant sweep |
 | `ros2_ws/src/simlingo_ros/IMPLEMENTATION_NOTES.md` | SimLingo node implementation notes |
+| `ros2_ws/src/recogdrive_ros/RECOGDRIVE_inference_optimisation.md` | ReCogDrive write-up: stage profile, each step, the two bf16 exactness findings, TensorRT / INT8 for the ViT, limitations |
 | `PORTING.md` | **Read this first when moving to Thor** — what to re-validate and what will not transfer |
 
 ## A note on the source
@@ -211,7 +235,7 @@ Apache License 2.0 — see `LICENSE`. Attribution for the upstream projects is i
 `NOTICE`.
 
 This repository does not redistribute any model's source. The ORION, MindDrive,
-SimLingo and Orion-Lite checkouts are supplied by you and imported at runtime;
+SimLingo, ReCogDrive and Orion-Lite checkouts are supplied by you and imported at runtime;
 every speedup is a post-build transform on the instantiated model object, and
 the three small source changes that are needed ship as unified diffs under
 `env/minddrive/` and `simlingo_patch/`. Model weights are not included.
