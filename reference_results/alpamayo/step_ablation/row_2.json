@@ -1,0 +1,178 @@
+{
+ "row": 2,
+ "name": "+ CUDA graphs",
+ "flags": {
+  "capture": true,
+  "speculate": false,
+  "fuse": false,
+  "trt_dir": ""
+ },
+ "timing": {
+  "changing": {
+   "mean": 3631.9619118751993,
+   "sd": 1211.4986677333452,
+   "n": 24,
+   "stages": {
+    "prepare": 1.5826517080010187,
+    "vit": 208.13370541721574,
+    "prefill": 708.3690963336267,
+    "verify": 0.4853125828958582,
+    "decode": 2476.9784417079186,
+    "expert": 229.178120250405,
+    "to_traj": 6.242615416795161,
+    "tokens": 23.083333333333332,
+    "accepted": 0.0,
+    "decode_steps": 23.083333333333332
+   }
+  },
+  "steady": {
+   "mean": 3631.9619118751993,
+   "sd": 1211.4986677333452,
+   "n": 24,
+   "stages": {
+    "prepare": 1.5826517080010187,
+    "vit": 208.13370541721574,
+    "prefill": 708.3690963336267,
+    "verify": 0.4853125828958582,
+    "decode": 2476.9784417079186,
+    "expert": 229.178120250405,
+    "to_traj": 6.242615416795161,
+    "tokens": 23.083333333333332,
+    "accepted": 0.0,
+    "decode_steps": 23.083333333333332
+   }
+  }
+ },
+ "scenes": [
+  {
+   "dev_m": 0.005576133728027344,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.0392303466796875,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.008884429931640625,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.021642744541168213,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.005079343914985657,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.028226852416992188,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.030132293701171875,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 10.221778869628906,
+   "same_text": false,
+   "stats": {
+    "tokens": 37,
+    "accepted": 0,
+    "decode_steps": 37,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.11622238159179688,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.2843914031982422,
+   "same_text": true,
+   "stats": {
+    "tokens": 49,
+    "accepted": 0,
+    "decode_steps": 49,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.18529129028320312,
+   "same_text": true,
+   "stats": {
+    "tokens": 24,
+    "accepted": 0,
+    "decode_steps": 24,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.03118896484375,
+   "same_text": true,
+   "stats": {
+    "tokens": 39,
+    "accepted": 0,
+    "decode_steps": 39,
+    "draft": 0
+   }
+  }
+ ],
+ "traj": {
+  "median_m": 0.030660629272460938,
+  "worst_same_text_m": 0.2843914031982422,
+  "worst_m": 10.221778869628906,
+  "mean_m": 0.9148037545382977,
+  "same_text": 11,
+  "scenes": 12
+ },
+ "gpu_mhz": 1300,
+ "peak_gib": 21.17659282684326
+}

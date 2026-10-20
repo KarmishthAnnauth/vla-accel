@@ -1,10 +1,10 @@
 # VLA inference acceleration on Edge Device 
 
-Everything needed to reproduce the inference-latency work on four
+Everything needed to reproduce the inference-latency work on five
 vision-language-action driving models, packaged so it can be re-run on a
 **Jetson AGX Thor**. All figures in here were measured on a **Jetson AGX Orin
 64 GB** (JetPack R36.4.7, clocks pinned) between September 12–18 2026
-(ReCogDrive: October 2–3 2026); Thor is the port target, not yet measured.
+(ReCogDrive: October 2–3 2026; Alpamayo 1.5: October 3–12 2026); Thor is the port target, not yet measured.
 
 **Nothing in this repo requires CARLA.** Every model's speedups are measured by
 a standalone bench that loads the checkpoint once and applies the optimisations
@@ -22,8 +22,9 @@ only needed for closed-loop driving scores, which are out of scope here.
 | **ORION** (EVA-ViT-L + LLaVA-LLaMA-7B) | 2030 ms/frame | **~1000 ms/frame** | **~2.0×** | < 1 cm |
 | **MindDrive** (EVA-ViT + LLaVA-Qwen2.5-3B, 2 experts) | 2318 ms/frame (fp32) | **874 ms/frame** | **2.65×** | 0.05–0.09 m |
 | **ReCogDrive** (InternVL3-2B + diffusion planner) | 1255 ms/frame | **615 ms/frame** | **2.04×** | none: VLM bit-identical, plan ~1e-5 m |
+| **Alpamayo 1.5** (Qwen3-VL 8B + diffusion action expert) | 4142 ms/frame | **836 ms/frame** (1396 on a changing scene) | **5.0×** | 0.14 m median, 1.01 m worst |
 
-The four came apart in completely different places, which is the main reason
+The five came apart in completely different places, which is the main reason
 all of them are worth re-running on Thor rather than assuming the same recipe:
 
 - **SimLingo was not compute-bound at all.** Two multiplicative causes: the GPU
@@ -46,11 +47,19 @@ all of them are worth re-running on Thor rather than assuming the same recipe:
   launch overhead (283 → 28 ms under a CUDA graph), a twentieth was an LM head
   whose logits nothing reads, and the LLM ran its matmuls at half the GPU's
   rate because of how `F.linear` calls the bf16 GEMM. It is the only one of the
-  four where the fast path is **bit-identical** to the reference in the VLM,
+  five where the fast path is **bit-identical** to the reference in the VLM,
   which took two findings about bf16: a matmul rounds a row differently
   depending on the batch's row count, and `torch.compile` drops intermediate
   roundings. INT8 for the vision encoder through TensorRT works only with
   explicit Q/DQ nodes and is opt-in (577 ms, plans shift 0.13 m on average).
+- **Alpamayo 1.5 was decode-bound.** Each of its ~16–25 reasoning tokens costs
+  ~100 ms, because each one is a pass over 12.9 GiB of weights. CUDA graphs and
+  fusion only reach 3.3 s. The win is **draft decoding**: the previous frame's
+  reasoning is checked inside the prefill pass and accepted wherever the model
+  agrees, so a scene whose reasoning did not change needs no decode step
+  (3289 → 915 ms). Greedy output is the sequential token sequence; under
+  sampling the distribution is unchanged. TensorRT fp16 for the ViT and the
+  prefill adds −79 ms. INT8 prefill (706 ms) is opt-in at 0.53 m median shift.
 
 Full methodology, per-stage tables and the negative results are in the docs
 listed under each model below.
@@ -68,6 +77,7 @@ ros2_ws/src/
 simlingo_patch/       files that must be dropped into a SimLingo checkout
 bench/simlingo/       SimLingo's standalone profiling + diagnosis scripts
 bench/recogdrive/     ReCogDrive's profiling, exactness and TensorRT / INT8 scripts
+bench/alpamayo/       Alpamayo 1.5: the speedup module itself + its benches and TensorRT / INT8 builders
 assets/frames/        three real camera frames used by every parity check
 scripts/              launchers (Orin paths; edit for Thor)
 env/                  Dockerfiles, image build scripts, upstream patches;
@@ -87,7 +97,8 @@ its compiled mmcv ops) stay exactly as they are.
 | ORION | `ros2_ws/src/orion_ros/orion_ros/orion_speedups.py` | 833 |
 | MindDrive | `ros2_ws/src/minddrive_ros/minddrive_ros/minddrive_speedups.py` | 1260 |
 | SimLingo | `simlingo_patch/simlingo_training/models/fast_inference.py` | 350 |
-| ReCogDrive | `ros2_ws/src/recogdrive_ros/recogdrive_ros/recogdrive_speedups.py` | 843 |
+| ReCogDrive | `ros2_ws/src/recogdrive_ros/recogdrive_ros/recogdrive_speedups.py` | 847 |
+| Alpamayo 1.5 | `bench/alpamayo/alpamayo_speedups.py` | 984 |
 
 SimLingo is the exception to the "no source edits" rule: its fast path replaces
 a method on `DrivingModel`, so it ships as a file that drops into the SimLingo
@@ -101,6 +112,8 @@ falls back to the unoptimised path if it fails (`fast_inference` parameter).
 | ORION | `orion_ros/tools/bench_orion.py` | Loads once (~200 s), applies 14 variants cumulatively, CUDA-event timing per stage (ViT / LLM / map head / det head / planner) + max Δ trajectory vs the untouched model |
 | MindDrive | `minddrive_ros/tools/bench_minddrive.py` | Same, 19 variants; fp32 and fp16 are separate invocations with `--ref-out`/`--ref-in` carrying the fp32 reference across, so fp16 is compared to the true reference and not to fp16 eager |
 | SimLingo | `bench/simlingo/simlingo_fast_check.py` | Correctness + speed of `fast_inference` against the untouched model on a node-shaped input |
+| Alpamayo 1.5 | `bench/alpamayo/fast_check.py`, `step_ablation.py` | `verify()` with greedy tokens and the same diffusion noise, then per-stage timing in steady / changing / no-draft regimes on held-out Bench2Drive scenes. `step_ablation.py` gives the cumulative table, one row per process |
+| ORION, opt-ins | `orion_ros/tools/bench_orion_b2d.py` | INT8 LLM and lite vision on real six-camera Bench2Drive clips, as sequences with temporal memory, seeded per frame; `--compare` prints time and trajectory deviation per setup |
 | ReCogDrive | `bench/recogdrive/fast_check.py` | Fast path vs the untouched agent with the same diffusion noise: hidden-state and trajectory difference, pixel equality, fallback, speed. `profile_baseline.py` for the stage profile |
 
 Plus, per model, an end-to-end path with no simulator:
@@ -185,6 +198,9 @@ docker exec sim_ros python3 /benchmarking/bench/simlingo/simlingo_fast_check.py
 
 # ReCogDrive (no container: a venv, see env/recogdrive)
 cd bench/recogdrive && python3 make_frames.py && ./run.sh fast_check.py
+
+# Alpamayo 1.5 (no container: a venv, see bench/alpamayo/README.md)
+cd bench/alpamayo && ./run.sh fast_check.py --b2d 3
 ```
 
 Compare the result against `reference_results/` and the tables in the docs.
@@ -208,6 +224,7 @@ python3 .../tools/fake_carla_topics.py 45         # duration_s [hz]
 | `ros2_ws/src/minddrive_ros/MINDDRIVE_ROS_NODE.md` | MindDrive equivalent, incl. the full INT8 / SmoothQuant sweep |
 | `ros2_ws/src/simlingo_ros/IMPLEMENTATION_NOTES.md` | SimLingo node implementation notes |
 | `ros2_ws/src/recogdrive_ros/RECOGDRIVE_inference_optimisation.md` | ReCogDrive write-up: stage profile, each step, the two bf16 exactness findings, TensorRT / INT8 for the ViT, limitations |
+| `bench/alpamayo/README.md` | Alpamayo 1.5: the cumulative step table, stage profile, draft decoding, TensorRT / INT8 results, environment |
 | `PORTING.md` | **Read this first when moving to Thor** — what to re-validate and what will not transfer |
 
 ## A note on the source
@@ -235,7 +252,7 @@ Apache License 2.0 — see `LICENSE`. Attribution for the upstream projects is i
 `NOTICE`.
 
 This repository does not redistribute any model's source. The ORION, MindDrive,
-SimLingo, ReCogDrive and Orion-Lite checkouts are supplied by you and imported at runtime;
+SimLingo, ReCogDrive, Alpamayo 1.5 and Orion-Lite checkouts are supplied by you and imported at runtime;
 every speedup is a post-build transform on the instantiated model object, and
 the three small source changes that are needed ship as unified diffs under
 `env/minddrive/` and `simlingo_patch/`. Model weights are not included.

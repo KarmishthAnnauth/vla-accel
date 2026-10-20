@@ -1,0 +1,21 @@
+[b2d +   22.0s] setup=default building model ...
+[b2d +  204.8s] model loaded
+[b2d +  205.0s] merge_lora: LoRA folded into LLM weights
+[b2d +  205.0s] flash-attn patch: LLaMA prefill attention -> flash_attn_func(causal)
+[b2d +  206.3s] vit glue: 24 blocks -> fused qkv + SDPA + fused w12
+[b2d +  206.9s] down_proj transposed weights: 32 layers
+[b2d +  207.4s] compile: heads -> 4 transformer stacks wrapped (mode='default')
+[b2d +  207.4s] compile: heads wrapped with torch.compile(mode='default')
+[b2d +  207.4s] compile: llm wrapped with torch.compile(mode='default')
+[b2d +  207.4s] compile: vit wrapped with torch.compile(mode='default')
+[b2d +  207.4s] map head slice: 1800 -> 300 lane queries (one-to-many dropped)
+[b2d +  207.4s] 4 clips, 54 frames, stride 10
+[b2d +  285.6s] warm-up 0: 77926 ms
+[b2d +  286.8s] warm-up 1: 951 ms
+[b2d +  287.9s] warm-up 2: 931 ms
+[b2d +  289.0s] warm-up 3: 933 ms
+[b2d +  306.0s] ParkedObstacle_Town03_Route103_Weather25: 15 frames, forward mean 929 ms
+[b2d +  317.4s] PedestrianCrossing_Town12_Route867_Weather9: 10 frames, forward mean 930 ms
+[b2d +  333.4s] SignalizedJunctionLeftTurnEnterFlow_Town12_Route885_Weather14: 14 frames, forward mean 929 ms
+[b2d +  350.4s] StaticCutIn_Town03_Route149_Weather19: 15 frames, forward mean 929 ms
+[b2d +  350.4s] setup=default: forward 929 ms (sd 1), prep 207 ms, saved /benchmarking/orion_b2d/default.npz

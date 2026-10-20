@@ -15,6 +15,24 @@ Diff Thor's runs against these.
 | `minddrive/orin_smoothquant.json` | SmoothQuant α=0.5: 824 ms, 0.41 m off. Still not adopted. |
 | `minddrive/orin_recipe_r1.json` | ORION's INT8 recipe (α=0.8, MLP only, outer layers fp16) applied to MindDrive — it does *worse* (1.45 m), which is the point. |
 
+## ORION opt-ins on Bench2Drive (`orion_ros/tools/bench_orion_b2d.py`, 2026-10-06)
+
+Four real six-camera clips (54 frames), fed as sequences with temporal memory,
+with the planner noise seeded per frame identically in every setup.
+`orion/orin_b2d_<setup>.npz` holds the trajectories and timings, `.log` the
+run, and `orion/orin_b2d_compare.txt` the `--compare` table:
+
+| Setup | Forward ms | Mean / p95 / max deviation vs default |
+|---|---:|---|
+| default | 929 | — |
+| noise (another seed; the noise floor) | 949 | 0.003 / 0.008 / 0.026 m |
+| int8 (LLM) | 857 | 0.058 / 0.155 / 0.179 m |
+| lite (512 px ViT + staggered rear) | 687 | 1.03 / 3.04 / 6.56 m |
+| both | 622 | 1.02 / 2.99 / 6.60 m |
+
+On real clips INT8 stays at about 6 cm. Lite vision moves plans by a metre, so
+it stays off.
+
 ## ORION and SimLingo
 
 No JSON: their numbers were recorded in the write-ups as they were measured, and
@@ -38,3 +56,15 @@ MindDrive's, so consider saving it here alongside.
 | `recogdrive/orin_vit_plan_deviation.log` | What each of those encoders does to the planned trajectory, 12 cases, same noise. |
 | `recogdrive/orin_frame_timing.log` | Whole-frame time with the exact encoder and with the partial-INT8 engine. |
 | `recogdrive/orin_int8_calib_alpha0.5.log`, `..._alpha0.8.log` | INT8 calibration with rebalancing: simulated feature error per group of quantised layers, per-block sensitivity. |
+
+## Alpamayo 1.5 (`bench/alpamayo/`, 2026-10-03 – 10-12)
+
+| File | What it is |
+|---|---|
+| `alpamayo/step_ablation/row_*.json`, `run_*.log`, `summary_int8.log` | The cumulative step ablation, 12 held-out Bench2Drive scenes: 4142 ms reference → 836 ms TensorRT fp16 (steady scene). `summary_int8.log` is the `--summarize` table. Row 0's `reference.pt` is not kept (it is rewritten by `--row 0`). |
+| `alpamayo/orin_profile_baseline.json` / `.log` | Stage profile of the unmodified rollout, 1 and 4 cameras. |
+| `alpamayo/orin_fast_check*.json` / `.log` | `fast_check.py`: on the three CARLA frames (PyTorch, `_trt`, `_trt_int8`) and on the held-out Bench2Drive clips (`_b2d_pytorch`, `_b2d_fp16`, `_b2d_int8`). |
+| `alpamayo/orin_trt_probe.log` | TensorRT fp16 vs the fast path per component (ViT, one decoder layer, one expert layer). |
+| `alpamayo/orin_trt_build.log` | Building and checking the fp16 ViT + per-layer prefill engines. |
+| `alpamayo/orin_trt_int8_*.log` | INT8: one-layer speed, the PyTorch simulation sweep, the engine builds (kept recipe, all linears, ViT). |
+| `alpamayo/orin_microbench.log`, `orin_opbench.log` | Op-level timings behind the fusion / layout choices. |

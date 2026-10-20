@@ -1,0 +1,56 @@
+[load] 15 s, 20.6 GiB on GPU
+No <traj_future_start> token found in generated sequences for sequence 0
+12 scenes from held-out Bench2Drive clips: ['DynamicObjectCrossing_Town11_Route20_Weather20', 'LaneChange_Town13_Route739_Weather25', 'ParkedObstacle_Town03_Route103_Weather25', 'VanillaSignalizedTurnEncounterGreenLight_Town12_Route869_Weather11']
+
+== correctness: greedy tokens, same noise ==
+FastAlpamayo: TensorRT engines (fp16) loaded in 56 s
+FastAlpamayo: fused kernels in use: rope, silu-gate, rmsnorm, expert rmsnorm, expert rope, vit rope, expert layer
+FastAlpamayo ready: prompt 828 tokens, prefill window 860, KV buffer 972 rows, 4 images x 720 patches, 5 Euler steps, CUDA graphs captured, TensorRT vision encoder, TensorRT prefill in 67.4 s
+scene 0: text cold/draft equal = True/True  max traj dev cold 0.1151 m, draft 0.1262 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 1: text cold/draft equal = True/True  max traj dev cold 0.2414 m, draft 0.2819 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 2: text cold/draft equal = True/True  max traj dev cold 0.0111 m, draft 0.0411 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 3: text cold/draft equal = True/True  max traj dev cold 0.0236 m, draft 0.0233 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 4: text cold/draft equal = False/False  max traj dev cold 0.4353 m, draft 0.4471 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 5: text cold/draft equal = True/True  max traj dev cold 0.1253 m, draft 0.1352 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 6: text cold/draft equal = True/True  max traj dev cold 0.0808 m, draft 0.0773 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 7: text cold/draft equal = False/False  max traj dev cold 10.3272 m, draft 10.3589 m  draft pass {'tokens': 34, 'accepted': 32, 'decode_steps': 1, 'draft': 32}
+         cot=''
+scene 8: text cold/draft equal = True/True  max traj dev cold 1.0193 m, draft 1.0125 m  draft pass {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+         cot='Keep distance to the lead vehicle since it is directly ahead in our lane'
+scene 9: text cold/draft equal = True/True  max traj dev cold 0.0595 m, draft 0.1415 m  draft pass {'tokens': 49, 'accepted': 32, 'decode_steps': 2, 'draft': 32}
+         cot='Change to the left lane after turning right due to needing to merge into the main through lane away from the curbside/bike-lane edge, with clear signals and no immediate conflicting traffic, then accelerate once the merge is complete.'
+scene 10: text cold/draft equal = True/True  max traj dev cold 0.0994 m, draft 0.2423 m  draft pass {'tokens': 24, 'accepted': 24, 'decode_steps': 0, 'draft': 24}
+         cot='Wait for a gap because a car is coming from behind in the left lane blocking an immediate merge to the left'
+scene 11: text cold/draft equal = True/True  max traj dev cold 0.1236 m, draft 0.1124 m  draft pass {'tokens': 39, 'accepted': 32, 'decode_steps': 1, 'draft': 32}
+         cot='Lane change to the left due to slow traffic ahead in our lane and a safe gap behind the orange car in the left lane, then match speed with left-lane traffic after merging.'
+summary over 12 scenes: reasoning text equal to the reference in 20/24 passes; trajectory max |diff| mean 1.085 m, median 0.138 m, worst 10.359 m
+
+== logit noise between paths (strict argmax) ==
+scene 0: max |dlogit| 0.875 over 16 positions, smallest top-2 gap 2.000, tokens agree for 16/16
+scene 1: max |dlogit| 0.312 over 16 positions, smallest top-2 gap 0.562, tokens agree for 16/16
+scene 2: max |dlogit| 0.750 over 16 positions, smallest top-2 gap 0.625, tokens agree for 16/16
+scene 3: max |dlogit| 0.375 over 16 positions, smallest top-2 gap 1.062, tokens agree for 16/16
+scene 4: max |dlogit| 0.250 over 5 positions, smallest top-2 gap 0.062, tokens agree for 4/16
+scene 5: max |dlogit| 0.312 over 16 positions, smallest top-2 gap 0.875, tokens agree for 16/16
+scene 6: max |dlogit| 0.500 over 16 positions, smallest top-2 gap 0.500, tokens agree for 16/16
+scene 7: max |dlogit| 0.250 over 30 positions, smallest top-2 gap 0.062, tokens agree for 29/34
+scene 8: max |dlogit| 0.375 over 16 positions, smallest top-2 gap 1.312, tokens agree for 16/16
+scene 9: max |dlogit| 0.375 over 49 positions, smallest top-2 gap 0.000, tokens agree for 49/49
+scene 10: max |dlogit| 0.438 over 24 positions, smallest top-2 gap 0.188, tokens agree for 24/24
+scene 11: max |dlogit| 0.625 over 39 positions, smallest top-2 gap 0.000, tokens agree for 39/39
+
+== fast path timing (ms, mean) ==
+steady, greedy         total   803.2 ms | prepare=2 vit=130 prefill=476 verify=1 decode=0 expert=187 to_traj=7 | tokens 16.0 accepted 16.0 decode steps 0.0
+changing, greedy       total  1341.6 ms | prepare=2 vit=130 prefill=476 verify=1 decode=539 expert=187 to_traj=7 | tokens 19.0 accepted 13.3 decode steps 5.2
+no draft, greedy       total  2777.8 ms | prepare=2 vit=130 prefill=475 verify=0 decode=1976 expert=187 to_traj=7 | tokens 19.0 accepted 0.0 decode steps 19.0
+steady, sampled        total   808.4 ms | prepare=2 vit=130 prefill=476 verify=6 decode=0 expert=187 to_traj=7 | tokens 16.0 accepted 16.0 decode steps 0.0
+no draft, sampled      total  2806.1 ms | prepare=2 vit=130 prefill=476 verify=1 decode=2002 expert=187 to_traj=7 | tokens 19.2 accepted 0.0 decode steps 19.2
+
+gpu 1300 MHz, 22.1 GiB peak

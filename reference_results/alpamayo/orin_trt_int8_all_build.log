@@ -1,0 +1,47 @@
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:00, 15.91it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 20.54it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 19.82it/s]
+Some weights of Alpamayo1_5 were not initialized from the model checkpoint at /media/USER/EXTSSD/alpamayo-1.5 and are newly initialized: ['action_in_proj.sinus.0.freqs', 'action_in_proj.sinus.1.freqs', 'action_in_proj.timestep_fourier_encoder.freqs', 'action_space.accel_mean', 'action_space.accel_std', 'action_space.curvature_mean', 'action_space.curvature_std']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[load] 15 s, 20.6 GiB on GPU
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/trt_int8.py:408: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+  torch.onnx.export(module, (h_in, cos, sin), os.path.join(work, "layer.onnx"),
+layer 00:   7.73 ms, rel-L2 vs the bf16 model's layer output 0.0189 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 01:   7.95 ms, rel-L2 vs the bf16 model's layer output 0.0460 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 02:   7.77 ms, rel-L2 vs the bf16 model's layer output 0.0136 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 03:   7.97 ms, rel-L2 vs the bf16 model's layer output 0.0076 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 04:   7.77 ms, rel-L2 vs the bf16 model's layer output 0.0101 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 05:   7.97 ms, rel-L2 vs the bf16 model's layer output 0.0101 (rebalanced fp32 module 0.0024), finite True, fp16: none
+layer 06:   7.77 ms, rel-L2 vs the bf16 model's layer output 0.9885 (rebalanced fp32 module 0.0012), finite True, fp16: none
+layer 07:   7.80 ms, rel-L2 vs the bf16 model's layer output 0.0009 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 08:   7.78 ms, rel-L2 vs the bf16 model's layer output 0.0004 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 09:   7.77 ms, rel-L2 vs the bf16 model's layer output 0.0005 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 10:   7.96 ms, rel-L2 vs the bf16 model's layer output 0.0006 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 11:   7.95 ms, rel-L2 vs the bf16 model's layer output 0.0005 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 12:   7.79 ms, rel-L2 vs the bf16 model's layer output 0.0013 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 13:   7.98 ms, rel-L2 vs the bf16 model's layer output 0.0009 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 14:   7.97 ms, rel-L2 vs the bf16 model's layer output 0.0014 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 15:   7.79 ms, rel-L2 vs the bf16 model's layer output 0.0020 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 16:   7.78 ms, rel-L2 vs the bf16 model's layer output 0.0211 (rebalanced fp32 module 0.0026), finite True, fp16: none
+layer 17:   7.79 ms, rel-L2 vs the bf16 model's layer output 0.0015 (rebalanced fp32 module 0.0013), finite True, fp16: none
+layer 18:   7.99 ms, rel-L2 vs the bf16 model's layer output 0.0006 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 19:   7.80 ms, rel-L2 vs the bf16 model's layer output 0.0003 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 20:   7.96 ms, rel-L2 vs the bf16 model's layer output 0.0004 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 21:   7.99 ms, rel-L2 vs the bf16 model's layer output 0.0004 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 22:   8.00 ms, rel-L2 vs the bf16 model's layer output 0.0005 (rebalanced fp32 module 0.0003), finite True, fp16: none
+layer 23:   8.03 ms, rel-L2 vs the bf16 model's layer output 0.0004 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 24:   7.81 ms, rel-L2 vs the bf16 model's layer output 0.0015 (rebalanced fp32 module 0.0011), finite True, fp16: none
+layer 25:   7.78 ms, rel-L2 vs the bf16 model's layer output 0.0006 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 26:   8.01 ms, rel-L2 vs the bf16 model's layer output 0.0004 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 27:   8.01 ms, rel-L2 vs the bf16 model's layer output 0.0005 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 28:   8.00 ms, rel-L2 vs the bf16 model's layer output 0.0005 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 29:   7.79 ms, rel-L2 vs the bf16 model's layer output 0.0006 (rebalanced fp32 module 0.0001), finite True, fp16: none
+layer 30:   7.98 ms, rel-L2 vs the bf16 model's layer output 0.0012 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 31:   7.78 ms, rel-L2 vs the bf16 model's layer output 0.0011 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 32:   7.98 ms, rel-L2 vs the bf16 model's layer output 0.0012 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 33:   7.80 ms, rel-L2 vs the bf16 model's layer output 0.0014 (rebalanced fp32 module 0.0002), finite True, fp16: none
+layer 34:   7.99 ms, rel-L2 vs the bf16 model's layer output 0.0022 (rebalanced fp32 module 0.0013), finite True, fp16: none
+layer 35:   7.80 ms, rel-L2 vs the bf16 model's layer output 0.0133 (rebalanced fp32 module 0.0021), finite True, fp16: none
+36 layers: 284 ms in total -> /media/USER/EXTSSD/alpamayo-1.5-trt-int8-all

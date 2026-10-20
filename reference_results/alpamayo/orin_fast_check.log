@@ -1,0 +1,30 @@
+[load] 14 s, 20.6 GiB on GPU
+W1003 14:15:59.579000 129884 torch/_inductor/utils.py:1731] [7/0] Not enough SMs to use max_autotune_gemm mode
+
+== correctness: greedy tokens, same noise ==
+FastAlpamayo: fused kernels in use: rope, silu-gate, rmsnorm, expert rmsnorm, expert rope, vit rope, prefill down_proj W^T, expert layer
+FastAlpamayo ready: prompt 828 tokens, prefill window 860, KV buffer 972 rows, 4 images x 720 patches, 5 Euler steps, CUDA graphs captured in 18.5 s
+scene 0: text cold/draft equal = True/True  max traj dev cold 0.0070 m, draft 0.0077 m  draft pass {'tokens': 15, 'accepted': 15, 'decode_steps': 0, 'draft': 15}
+         cot='Keep distance to the pedestrian since they are walking ahead in our lane'
+scene 1: text cold/draft equal = True/True  max traj dev cold 0.0560 m, draft 0.0542 m  draft pass {'tokens': 15, 'accepted': 15, 'decode_steps': 0, 'draft': 15}
+         cot='Keep distance to the cyclist since it is directly ahead in our lane'
+scene 2: text cold/draft equal = True/True  max traj dev cold 0.0052 m, draft 0.0156 m  draft pass {'tokens': 10, 'accepted': 10, 'decode_steps': 0, 'draft': 10}
+         cot='Keep lane since the lane is clear ahead'
+
+== logit noise between paths (strict argmax) ==
+scene 0: max |dlogit| 0.312 over 15 positions, smallest top-2 gap 0.125, tokens agree for 15/15
+scene 1: max |dlogit| 0.250 over 15 positions, smallest top-2 gap 0.438, tokens agree for 15/15
+scene 2: max |dlogit| 0.062 over 2 positions, smallest top-2 gap 0.062, tokens agree for 1/10
+
+== fast path timing (ms, mean) ==
+steady, greedy         total   882.1 ms | prepare=2 vit=155 prefill=528 verify=1 decode=0 expert=188 to_traj=7 | tokens 15.0 accepted 15.0 decode steps 0.0
+changing, greedy       total   954.8 ms | prepare=2 vit=155 prefill=531 verify=1 decode=70 expert=188 to_traj=7 | tokens 15.0 accepted 7.7 decode steps 0.7
+no draft, greedy       total  2264.4 ms | prepare=2 vit=155 prefill=530 verify=1 decode=1381 expert=188 to_traj=7 | tokens 13.3 accepted 0.0 decode steps 13.3
+steady, sampled        total  1728.2 ms | prepare=2 vit=155 prefill=534 verify=6 decode=834 expert=188 to_traj=7 | tokens 16.5 accepted 0.5 decode steps 7.8
+no draft, sampled      total  2515.9 ms | prepare=2 vit=155 prefill=530 verify=2 decode=1631 expert=188 to_traj=7 | tokens 15.7 accepted 0.0 decode steps 15.7
+
+== reference (unmodified model), same scenes ==
+reference greedy (top_k=1)   total  3143.6 ms  (~11 cot tokens)
+reference sampled 0.98/0.6   total  3316.7 ms  (~13 cot tokens)
+
+gpu 1300 MHz, 24.6 GiB peak

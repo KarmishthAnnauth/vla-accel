@@ -1,0 +1,15 @@
+[load] 30 s, 20.6 GiB on GPU
+  q_proj     clip      1.31 (q0.99999, max      4.07) linear output rel err 0.0412
+  k_proj     clip      1.36 (q0.99999, max      4.07) linear output rel err 0.0491
+  v_proj     clip      0.84 (q0.9999, max      4.07) linear output rel err 0.0460
+  o_proj     clip      0.57 (q0.9999, max      0.77) linear output rel err 0.0247
+  gate_proj  clip     18.34 (q1.0, max     18.34) linear output rel err 0.0136
+  up_proj    clip     13.71 (q0.9999, max     18.34) linear output rel err 0.1840
+  down_proj  clip      4.82 (q0.99999, max      8.84) linear output rel err 0.1841
+layer 5 fp16 engine             12.58 ms, rel-L2 vs the bf16 model's layer output 0.0027
+layer 5 all 7 linears INT8       7.77 ms, rel-L2 0.0276 (vs the fp32 module 0.0275), finite True, 7 linears with Q/DQ
+    kgen:Int8 x4, wait:? x4, fusion:Half x4, kgen:Half x3, signal:? x3, kgen:Float x2, Reformat:Row major linear FP32 x2, shape_call:? x1
+layer 5 MLP only INT8            8.54 ms, rel-L2 0.0267 (vs the fp32 module 0.0265), finite True, 3 linears with Q/DQ
+    kgen:Half x5, wait:? x4, signal:? x3, gemm:Half x2, kgen:Float x2, Reformat:Row major linear FP32 x2, shape_call:? x1, kgen:Int8 x1
+layer 5 all but down_proj        9.14 ms, rel-L2 0.0150 (vs the fp32 module 0.0148), finite True, 6 linears with Q/DQ
+    fusion:Half x6, kgen:Half x4, kgen:Int8 x4, wait:? x4, Reformat:Row major linear FP16 format x3, signal:? x3, Reformat:Row major linear FP32 x3, kgen:Float x2

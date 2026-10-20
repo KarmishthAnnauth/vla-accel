@@ -1,0 +1,37 @@
+layer 00:  12.41 ms, rel-L2 vs the bf16 model's layer output 0.0030, |h| max 13, finite True
+layer 01:  12.18 ms, rel-L2 vs the bf16 model's layer output 0.0083, |h| max 32, finite True
+layer 02:  12.55 ms, rel-L2 vs the bf16 model's layer output 0.0034, |h| max 44, finite True, built in 2 s
+layer 03:  12.33 ms, rel-L2 vs the bf16 model's layer output 0.0025, |h| max 46, finite True, built in 2 s
+layer 04:  12.38 ms, rel-L2 vs the bf16 model's layer output 0.0036, |h| max 53, finite True, built in 2 s
+layer 05:  12.51 ms, rel-L2 vs the bf16 model's layer output 0.0027, |h| max 60, finite True, built in 2 s
+layer 06:  12.51 ms, rel-L2 vs the bf16 model's layer output 0.0147, |h| max 28288, finite True, built in 2 s
+layer 07:  12.49 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 08:  12.47 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 1 s
+layer 09:  12.57 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 10:  12.48 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 11:  12.62 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 12:  12.41 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 13:  12.47 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 14:  12.45 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 1 s
+layer 15:  12.61 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 16:  12.47 ms, rel-L2 vs the bf16 model's layer output 0.0032, |h| max 28288, finite True, built in 2 s
+layer 17:  12.47 ms, rel-L2 vs the bf16 model's layer output 0.0015, |h| max 28288, finite True, built in 2 s
+layer 18:  12.55 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 19:  12.58 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 20:  12.57 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 21:  12.55 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 22:  12.51 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 1 s
+layer 23:  12.55 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 24:  12.47 ms, rel-L2 vs the bf16 model's layer output 0.0011, |h| max 28288, finite True, built in 2 s
+layer 25:  12.52 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 26:  12.43 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 27:  12.49 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 28:  12.50 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 1 s
+layer 29:  12.58 ms, rel-L2 vs the bf16 model's layer output 0.0001, |h| max 28288, finite True, built in 2 s
+layer 30:  12.48 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 31:  12.55 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 32:  12.56 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 33:  12.62 ms, rel-L2 vs the bf16 model's layer output 0.0002, |h| max 28288, finite True, built in 2 s
+layer 34:  12.46 ms, rel-L2 vs the bf16 model's layer output 0.0013, |h| max 28288, finite True, built in 2 s
+layer 35:  12.61 ms, rel-L2 vs the bf16 model's layer output 0.0018, |h| max 28288, finite True, built in 2 s
+layers 0..35: 450 ms in total

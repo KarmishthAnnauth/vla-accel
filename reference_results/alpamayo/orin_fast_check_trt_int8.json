@@ -1,0 +1,145 @@
+{
+ "verify": [
+  {
+   "cot": "Keep distance to the pedestrian since they are walking ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.03821563720703125,
+   "cold_stats": {
+    "tokens": 15,
+    "accepted": 0,
+    "decode_steps": 15,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.07219696044921875,
+   "draft_stats": {
+    "tokens": 15,
+    "accepted": 15,
+    "decode_steps": 0,
+    "draft": 15
+   },
+   "logit_noise": 4.75,
+   "min_top2_gap": 0.0625
+  },
+  {
+   "cot": "Keep distance to the cyclist since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.13550376892089844,
+   "cold_stats": {
+    "tokens": 15,
+    "accepted": 0,
+    "decode_steps": 15,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.1325359344482422,
+   "draft_stats": {
+    "tokens": 15,
+    "accepted": 15,
+    "decode_steps": 0,
+    "draft": 15
+   },
+   "logit_noise": 10.59375,
+   "min_top2_gap": 0.3125
+  },
+  {
+   "cot": "Keep lane since the lane is clear ahead",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.015590667724609375,
+   "cold_stats": {
+    "tokens": 10,
+    "accepted": 0,
+    "decode_steps": 10,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.0028743743896484375,
+   "draft_stats": {
+    "tokens": 10,
+    "accepted": 10,
+    "decode_steps": 0,
+    "draft": 10
+   },
+   "logit_noise": 0.9375,
+   "min_top2_gap": 0.0625
+  }
+ ],
+ "timing": {
+  "steady, greedy": {
+   "prepare": 1.8167263357706058,
+   "vit": 130.26404516373682,
+   "prefill": 341.8015460022919,
+   "verify": 1.014958167312822,
+   "decode": 0.043863166259446494,
+   "expert": 188.12719533404257,
+   "to_traj": 6.799076332148009,
+   "total": 670.9119324974987,
+   "tokens": 15.0,
+   "accepted": 15.0,
+   "decode_steps": 0.0,
+   "draft": 15.0
+  },
+  "changing, greedy": {
+   "prepare": 1.81477200142884,
+   "vit": 130.2009981639761,
+   "prefill": 341.7278798321301,
+   "verify": 0.9490755013151405,
+   "decode": 139.75267750114048,
+   "expert": 188.03345016931416,
+   "to_traj": 6.790776164658989,
+   "total": 810.3092784998202,
+   "tokens": 15.333333333333334,
+   "accepted": 4.0,
+   "decode_steps": 1.3333333333333333,
+   "draft": 15.333333333333334
+  },
+  "no draft, greedy": {
+   "prepare": 1.698751334818856,
+   "vit": 130.17516800027806,
+   "prefill": 341.72341049755534,
+   "verify": 0.5732213345860752,
+   "decode": 1380.467652498434,
+   "expert": 188.1272401684934,
+   "to_traj": 6.877846162145336,
+   "total": 2050.6936173308836,
+   "tokens": 13.333333333333334,
+   "accepted": 0.0,
+   "decode_steps": 13.333333333333334,
+   "draft": 0.0
+  },
+  "steady, sampled": {
+   "prepare": 1.8364149994643715,
+   "vit": 130.22301516806087,
+   "prefill": 341.86018883337965,
+   "verify": 6.169910496585847,
+   "decode": 835.6643474980956,
+   "expert": 188.05042683137194,
+   "to_traj": 6.894732005700159,
+   "total": 1511.758782173274,
+   "tokens": 16.5,
+   "accepted": 0.5,
+   "decode_steps": 7.833333333333333,
+   "draft": 15.666666666666666
+  },
+  "no draft, sampled": {
+   "prepare": 1.7374078355108697,
+   "vit": 130.1925014971251,
+   "prefill": 341.8889134991332,
+   "verify": 1.822385495567384,
+   "decode": 1632.1118926716736,
+   "expert": 188.12947166346325,
+   "to_traj": 7.0208005054155365,
+   "total": 2303.9705745031824,
+   "tokens": 15.666666666666666,
+   "accepted": 0.0,
+   "decode_steps": 15.666666666666666,
+   "draft": 0.0
+  },
+  "reference greedy (top_k=1)": {
+   "total": 3067.3280186674674
+  },
+  "reference sampled 0.98/0.6": {
+   "total": 3231.146654332406
+  }
+ }
+}

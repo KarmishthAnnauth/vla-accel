@@ -1,0 +1,334 @@
+{
+ "verify": [
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.1534585952758789,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.5795736312866211,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 14.625,
+   "min_top2_gap": 2.0
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.3758392333984375,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.30751991271972656,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 14.8125,
+   "min_top2_gap": 0.375
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.06817245483398438,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.1686840057373047,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 18.21875,
+   "min_top2_gap": 0.75
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.032012343406677246,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.4702718257904053,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 11.75,
+   "min_top2_gap": 1.125
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.1113525778055191,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.11880944669246674,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 9.875,
+   "min_top2_gap": 0.0625
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.8719482421875,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.917724609375,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 12.125,
+   "min_top2_gap": 1.03125
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.34169769287109375,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.25536346435546875,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 13.1875,
+   "min_top2_gap": 0.375
+  },
+  {
+   "cot": "",
+   "cold_text_equal": false,
+   "cold_max_dev_m": 10.04193115234375,
+   "cold_stats": {
+    "tokens": 34,
+    "accepted": 0,
+    "decode_steps": 34,
+    "draft": 0
+   },
+   "draft_text_equal": false,
+   "draft_max_dev_m": 10.15518569946289,
+   "draft_stats": {
+    "tokens": 34,
+    "accepted": 32,
+    "decode_steps": 1,
+    "draft": 32
+   },
+   "logit_noise": 8.109375,
+   "min_top2_gap": 0.0625
+  },
+  {
+   "cot": "Keep distance to the lead vehicle since it is directly ahead in our lane",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 2.3591384887695312,
+   "cold_stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 2.3119544982910156,
+   "draft_stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   },
+   "logit_noise": 10.75,
+   "min_top2_gap": 1.34375
+  },
+  {
+   "cot": "Change to the left lane after turning right due to needing to merge into the main through lane away from the curbside/bike-lane edge, with clear signals and no immediate conflicting traffic, then accelerate once the merge is complete.",
+   "cold_text_equal": false,
+   "cold_max_dev_m": 11.17207145690918,
+   "cold_stats": {
+    "tokens": 49,
+    "accepted": 0,
+    "decode_steps": 49,
+    "draft": 0
+   },
+   "draft_text_equal": false,
+   "draft_max_dev_m": 10.709632873535156,
+   "draft_stats": {
+    "tokens": 49,
+    "accepted": 32,
+    "decode_steps": 2,
+    "draft": 32
+   },
+   "logit_noise": 7.296875,
+   "min_top2_gap": 0.0625
+  },
+  {
+   "cot": "Wait for a gap because a car is coming from behind in the left lane blocking an immediate merge to the left",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 2.602214813232422,
+   "cold_stats": {
+    "tokens": 24,
+    "accepted": 0,
+    "decode_steps": 24,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.7901878356933594,
+   "draft_stats": {
+    "tokens": 24,
+    "accepted": 24,
+    "decode_steps": 0,
+    "draft": 24
+   },
+   "logit_noise": 9.65625,
+   "min_top2_gap": 0.1875
+  },
+  {
+   "cot": "Lane change to the left due to slow traffic ahead in our lane and a safe gap behind the orange car in the left lane, then match speed with left-lane traffic after merging.",
+   "cold_text_equal": true,
+   "cold_max_dev_m": 0.40222597122192383,
+   "cold_stats": {
+    "tokens": 39,
+    "accepted": 0,
+    "decode_steps": 39,
+    "draft": 0
+   },
+   "draft_text_equal": true,
+   "draft_max_dev_m": 0.324282169342041,
+   "draft_stats": {
+    "tokens": 39,
+    "accepted": 32,
+    "decode_steps": 1,
+    "draft": 32
+   },
+   "logit_noise": 8.96875,
+   "min_top2_gap": 0.25
+  }
+ ],
+ "timing": {
+  "steady, greedy": {
+   "prepare": 1.7629316716920584,
+   "vit": 130.36024666265197,
+   "prefill": 342.9736626664332,
+   "verify": 0.8393535002445182,
+   "decode": 0.04258550082643827,
+   "expert": 187.05113399967863,
+   "to_traj": 6.46119266699922,
+   "total": 670.5204278381037,
+   "tokens": 16.0,
+   "accepted": 16.0,
+   "decode_steps": 0.0,
+   "draft": 16.0
+  },
+  "changing, greedy": {
+   "prepare": 1.8066023355155874,
+   "vit": 130.37457533452348,
+   "prefill": 343.09392383147497,
+   "verify": 0.947308333707042,
+   "decode": 540.3549825011092,
+   "expert": 187.15949433196025,
+   "to_traj": 6.691077500969793,
+   "total": 1211.5088598341874,
+   "tokens": 19.0,
+   "accepted": 13.333333333333334,
+   "decode_steps": 5.166666666666667,
+   "draft": 16.0
+  },
+  "no draft, greedy": {
+   "prepare": 1.7368593374461245,
+   "vit": 130.89854099962395,
+   "prefill": 343.88695150361553,
+   "verify": 0.8666909949776406,
+   "decode": 1982.5879530035309,
+   "expert": 187.36408866485968,
+   "to_traj": 7.075418332533445,
+   "total": 2655.570165166864,
+   "tokens": 19.0,
+   "accepted": 0.0,
+   "decode_steps": 19.0,
+   "draft": 0.0
+  },
+  "steady, sampled": {
+   "prepare": 1.768090332916472,
+   "vit": 130.36660250266627,
+   "prefill": 343.8727439982661,
+   "verify": 6.44061183265876,
+   "decode": 0.04725816446201255,
+   "expert": 187.1519476674924,
+   "to_traj": 6.666245501643668,
+   "total": 677.3616446686598,
+   "tokens": 16.0,
+   "accepted": 16.0,
+   "decode_steps": 0.0,
+   "draft": 16.0
+  },
+  "no draft, sampled": {
+   "prepare": 1.6407004974704857,
+   "vit": 130.7966598372635,
+   "prefill": 343.337317496965,
+   "verify": 1.8333588353319403,
+   "decode": 2302.090179665053,
+   "expert": 187.2118508351074,
+   "to_traj": 6.723599830972186,
+   "total": 2974.699090666642,
+   "tokens": 22.0,
+   "accepted": 0.0,
+   "decode_steps": 22.0,
+   "draft": 0.0
+  },
+  "reference greedy (top_k=1)": {
+   "total": 3273.332957001306
+  },
+  "reference sampled 0.98/0.6": {
+   "total": 3271.2388121605422
+  }
+ }
+}

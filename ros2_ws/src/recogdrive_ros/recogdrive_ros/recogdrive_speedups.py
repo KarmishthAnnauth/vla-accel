@@ -222,6 +222,7 @@ class FastReCogDrive:
         self.profile = profile
         self.timing: Dict[str, float] = {}
         self.fallbacks = 0
+        self.noise_seed: Optional[int] = None
 
         self.agent = agent
         if agent.backbone is None or agent.vlm_type != "internvl":
@@ -778,9 +779,12 @@ class FastReCogDrive:
         self._ctx[0, start:start + n_win] = hidden[0, :n_win]
         self._his.copy_(history.reshape(1, -1))
         self._status.copy_(feats["status_feature"].reshape(1, -1))
+        g = None
+        if self.noise_seed is not None:
+            g = torch.Generator(device=self._dev).manual_seed(self.noise_seed)
         for i in range(self._steps + 1):
             self._noise[i] = torch.randn((1, self._horizon, self._noise.shape[-1]),
-                                         device=self._dev, dtype=self._pdtype)
+                                         device=self._dev, dtype=self._pdtype, generator=g)
         poses = self._planner().float().cpu().squeeze(0)
         self._tick("planner", t0)
         return self._Trajectory(poses)

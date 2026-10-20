@@ -1,4 +1,4 @@
-VLA inference acceleration — SimLingo, ORION, MindDrive, ReCogDrive
+VLA inference acceleration — SimLingo, ORION, MindDrive, ReCogDrive, Alpamayo 1.5
 Copyright 2026 Karmishth Annauth
 
 Licensed under the Apache License, Version 2.0. See LICENSE.
@@ -38,6 +38,16 @@ The exceptions are noted below.
                    exactly. ReCogDrive builds on NAVSIM (Apache License 2.0)
                    and InternVL (MIT License), neither of which is
                    redistributed here.
+
+  Alpamayo 1.5     Apache License 2.0 (code), NVIDIA CORPORATION & AFFILIATES
+                   https://huggingface.co/nvidia/Alpamayo-1.5-10B
+                   Referenced only. bench/alpamayo/alpamayo_speedups.py
+                   reads the sub-modules of the loaded Alpamayo1_5 model
+                   and recomputes what its
+                   sample_trajectories_from_data_with_vlm_rollout does for
+                   one trajectory sample; the alpamayo1_5 package is
+                   installed by the user. The model weights are NVIDIA's,
+                   distributed under their own terms, and not included.
 
   Orion-Lite       No license file is published upstream, so all rights are
                    reserved by its authors. This repository only references

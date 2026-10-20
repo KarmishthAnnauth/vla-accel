@@ -1,0 +1,178 @@
+{
+ "row": 4,
+ "name": "+ draft decoding",
+ "flags": {
+  "capture": true,
+  "speculate": true,
+  "fuse": true,
+  "trt_dir": ""
+ },
+ "timing": {
+  "changing": {
+   "mean": 1489.261456083265,
+   "sd": 1203.9320980084642,
+   "n": 24,
+   "stages": {
+    "prepare": 1.6685972497422579,
+    "vit": 155.61059212510978,
+    "prefill": 526.8139037085954,
+    "verify": 0.7586782082095548,
+    "decode": 609.5201049996225,
+    "expert": 187.84223724984864,
+    "to_traj": 6.062861583814083,
+    "tokens": 23.083333333333332,
+    "accepted": 8.0,
+    "decode_steps": 5.833333333333333
+   }
+  },
+  "steady": {
+   "mean": 915.248261541592,
+   "sd": 64.67937438967621,
+   "n": 48,
+   "stages": {
+    "prepare": 1.6956827500204479,
+    "vit": 155.63115279140524,
+    "prefill": 527.1971974587663,
+    "verify": 0.9971972915536753,
+    "decode": 34.50062637489282,
+    "expert": 187.97052581256443,
+    "to_traj": 6.252774937668922,
+    "tokens": 23.083333333333332,
+    "accepted": 20.666666666666668,
+    "decode_steps": 0.3333333333333333
+   }
+  }
+ },
+ "scenes": [
+  {
+   "dev_m": 0.08427906036376953,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.04449462890625,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.08109283447265625,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.031649112701416016,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.0027711987495422363,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.05471038818359375,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.05315399169921875,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 10.265117645263672,
+   "same_text": false,
+   "stats": {
+    "tokens": 37,
+    "accepted": 32,
+    "decode_steps": 1,
+    "draft": 32
+   }
+  },
+  {
+   "dev_m": 0.14995956420898438,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 16,
+    "decode_steps": 0,
+    "draft": 16
+   }
+  },
+  {
+   "dev_m": 0.2647895812988281,
+   "same_text": true,
+   "stats": {
+    "tokens": 49,
+    "accepted": 32,
+    "decode_steps": 2,
+    "draft": 32
+   }
+  },
+  {
+   "dev_m": 0.13014602661132812,
+   "same_text": true,
+   "stats": {
+    "tokens": 24,
+    "accepted": 24,
+    "decode_steps": 0,
+    "draft": 24
+   }
+  },
+  {
+   "dev_m": 0.027332782745361328,
+   "same_text": true,
+   "stats": {
+    "tokens": 39,
+    "accepted": 32,
+    "decode_steps": 1,
+    "draft": 32
+   }
+  }
+ ],
+ "traj": {
+  "median_m": 0.067901611328125,
+  "worst_same_text_m": 0.2647895812988281,
+  "worst_m": 10.265117645263672,
+  "mean_m": 0.9324580679337183,
+  "same_text": 11,
+  "scenes": 12
+ },
+ "gpu_mhz": 1300,
+ "peak_gib": 24.517260551452637
+}

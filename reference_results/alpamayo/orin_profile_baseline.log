@@ -1,0 +1,51 @@
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:00,  9.22it/s]
+Loading checkpoint shards:  80%|████████  | 4/5 [00:00<00:00,  7.35it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00,  6.03it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00,  6.54it/s]
+Some weights of Alpamayo1_5 were not initialized from the model checkpoint at /media/USER/EXTSSD/alpamayo-1.5 and are newly initialized: ['action_in_proj.sinus.0.freqs', 'action_in_proj.sinus.1.freqs', 'action_in_proj.timestep_fourier_encoder.freqs', 'action_space.accel_mean', 'action_space.accel_std', 'action_space.curvature_mean', 'action_space.curvature_std']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[load] 39 s, 20.6 GiB on GPU
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/common.py:56: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  torch.from_numpy(np.asarray(Image.open(f).convert("RGB"))).permute(2, 0, 1)
+[1 cam] warm 0: total=3544 ms tokens=10 gpu=1300MHz cot='Keep lane since the lane is clear ahead'
+[1 cam] warm 1: total=3255 ms tokens=15 gpu=1300MHz cot='Yield to the pedestrian walking along the edge of the lane ahead'
+[1 cam] run  2: total=3254 ms tokens=15 gpu=1300MHz cot='Keep distance to the cyclist since it is directly ahead in our lane'
+[1 cam] run  3: total=3138 ms tokens=14 gpu=1300MHz cot='Keep distance to the lead vehicle since it is moving slowly ahead'
+[1 cam] run  4: total=2906 ms tokens=12 gpu=1300MHz cot='Keep lane since the lane is clear of obstacles ahead'
+[1 cam] run  5: total=3360 ms tokens=16 gpu=1300MHz cot='Keep distance to the scooter ahead since it is moving slowly in our lane'
+[1 cam] run  6: total=4244 ms tokens=24 gpu=1300MHz cot='Nudge to the left in the same lane since a mixed obstacle is blocking the right side of ou'
+
+== 1 camera(s) x 4 frames, prompt 828 tokens, 16.2 generated, 5 Euler steps ==
+  preprocess        6.1 ms    0.2 %
+  vit             236.1 ms    7.0 %
+  prefill         739.1 ms   21.9 %
+  decode         1616.9 ms   47.8 %   (99.8 ms/token)
+  lm_head         132.0 ms    3.9 %
+  gen_overhead     69.7 ms    2.1 %
+  diffusion       569.1 ms   16.8 %   (expert 551.1 ms in 5 calls)
+  to_traj           6.2 ms    0.2 %
+  other             5.1 ms    0.2 %
+  total          3380.3 ms  100.0 %
+
+[4 cam] warm 0: total=6200 ms tokens=15 gpu=1300MHz cot='Keep distance to the cyclist since it is directly ahead in our lane'
+[4 cam] warm 1: total=5965 ms tokens=15 gpu=1300MHz cot='Yield to the pedestrians since they are walking ahead in our lane'
+[4 cam] run  2: total=5969 ms tokens=15 gpu=1300MHz cot='Keep distance to the cyclist since it is directly ahead in our lane'
+[4 cam] run  3: total=6095 ms tokens=16 gpu=1300MHz cot='Keep distance to the lead motorcycle since it is directly ahead in our lane'
+[4 cam] run  4: total=5644 ms tokens=12 gpu=1300MHz cot='Keep lane since the lane is clear of obstacles ahead'
+[4 cam] run  5: total=5753 ms tokens=13 gpu=1300MHz cot='Yield due to a pedestrian walking into our lane ahead'
+[4 cam] run  6: total=7451 ms tokens=28 gpu=1300MHz cot='Nudge to the left in the same lane since a mixed/scooter thing is stopped ahead blocking t'
+
+== 4 camera(s) x 4 frames, prompt 3073 tokens, 16.8 generated, 5 Euler steps ==
+  preprocess       15.8 ms    0.3 %
+  vit             895.1 ms   14.5 %
+  prefill        2753.4 ms   44.5 %
+  decode         1708.5 ms   27.6 %   (101.7 ms/token)
+  lm_head         136.7 ms    2.2 %
+  gen_overhead     85.7 ms    1.4 %
+  diffusion       574.5 ms    9.3 %   (expert 556.4 ms in 5 calls)
+  to_traj           6.2 ms    0.1 %
+  other             6.2 ms    0.1 %
+  total          6182.2 ms  100.0 %
+

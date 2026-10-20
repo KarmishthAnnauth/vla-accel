@@ -2,24 +2,63 @@
 __pycache__/
 *.py[cod]
 *.egg-info/
+*.egg
 build/
 install/
 log/
 .colcon_*
+.pytest_cache/
+
+# Python environments
+*_venv/
+.venv/
+venv/
 
 # Architecture-locked, must be rebuilt per device (see PORTING.md §1)
-.torchinductor_cache/
+.torchinductor_cache*/
 *.plan
+*.engine
+*.trt
 *.onnx
+*.onnx_data
+timing.cache
 engines/
 
 # Weights, calibration tensors and captured references: too large for git
 *.pth
 *.pt
 *.ckpt
+*.bin
+*.safetensors
 *.npz
 !reference_results/**/*.npz
 
-# Local run output
+# Local run output (the Orin copies to diff against are in reference_results/)
+results/
 *.csv
 control_trace_*.csv
+nohup.out
+core
+core.*
+
+# Backups and patch leftovers
+*.bak
+*.bak-*
+*.orig
+*.rej
+*~
+*.swp
+
+# Archives and installers
+*.zip
+*.tar
+*.tar.gz
+*.tar.xz
+*.deb
+
+# Editor, OS and tool state
+.vscode/
+.idea/
+.claude/
+.DS_Store
+.env

@@ -1,0 +1,39 @@
+[load] 14 s, 20.6 GiB on GPU
+
+VLM layer, 860 rows: 19.60 ms/layer -> 706 ms for 36 layers
+  input RMSNorm                       0.857 ms    4.4 %
+  q_proj                              0.938 ms    4.8 %
+  k_proj + v_proj                     0.499 ms    2.5 %
+  q_norm + k_norm                     1.141 ms    5.8 %
+  rope                                0.923 ms    4.7 %
+  sdpa causal gqa                     0.329 ms    1.7 %
+  o_proj (+reshape)                   0.937 ms    4.8 %
+  residual add x2                     0.241 ms    1.2 %
+  post RMSNorm                        0.857 ms    4.4 %
+  gate_proj                           3.033 ms   15.5 %
+  up_proj                             2.857 ms   14.6 %
+  silu(gate) * up                     0.594 ms    3.0 %
+  down_proj F.linear                  6.392 ms   32.6 %
+  (down_proj via W^T mm: 4.131 ms; sdpa with repeated kv: 0.550 ms; whole layer eager: 19.39 ms)
+
+expert layer, 64 rows (without attention): 2.23 ms/layer -> 80 ms for 36 layers
+  input RMSNorm                       0.232 ms   10.4 %
+  q/k/v proj                          0.288 ms   12.9 %
+  q_norm + k_norm                     0.630 ms   28.3 %
+  o_proj                              0.100 ms    4.5 %
+  post RMSNorm                        0.232 ms   10.4 %
+  gate + up                           0.458 ms   20.6 %
+  silu(gate) * up                     0.072 ms    3.2 %
+  down_proj                           0.214 ms    9.6 %
+
+ViT block, 2880 patches: 7.43 ms/layer -> 201 ms for 27 layers
+  norm1 + norm2 (LayerNorm)           0.699 ms    9.4 %
+  qkv                                 0.810 ms   10.9 %
+  rope (fp32 round trip)              2.394 ms   32.2 %
+  sdpa 4x16x720x720                   0.634 ms    8.5 %
+  proj (+reshape)                     0.253 ms    3.4 %
+  fc1                                 0.982 ms   13.2 %
+  gelu                                0.266 ms    3.6 %
+  fc2                                 0.962 ms   12.9 %
+  residual add x2                     0.430 ms    5.8 %
+  (W^T addmm: qkv 0.799, fc1 0.975, fc2 0.893 ms; fp16 fc1 1.561 incl. casts)

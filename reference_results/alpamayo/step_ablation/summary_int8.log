@@ -1,0 +1,11 @@
+row                                 steady ms     sd   decr.  changing  median m  worst m   text
+0 reference                            4142.2 1244.2     nan    4142.2     0.000    0.000  12/12
+1 + own inference loop                 4268.6 1357.0  -126.4    4268.6     0.031    0.284  11/12
+2 + CUDA graphs                        3632.0 1211.5   636.6    3632.0     0.031    0.284  11/12
+3 + fused kernels (torch.compile)      3289.2 1177.2   342.7    3289.2     0.066    0.385  11/12
+4 + draft decoding                      914.9   64.4  2374.4    1491.8     0.068    0.265  11/12
+5 + TensorRT fp16                       835.9   66.1    78.9    1395.6     0.138    1.012  10/12
+6 opt-in: TensorRT INT8 prefill         706.1   63.1   129.8    1267.8     0.525    2.312  10/12
+7 rejected: INT8 prefill incl. down_proj     1861.6 2172.1 -1025.7    1597.7     3.406    8.240   7/12
+8 rejected: INT8 vision encoder        1865.0 2447.0 -1029.0    1717.7     1.885    4.427   8/12
+reference sampled: 4633.7 ms (~25 tokens), greedy ~18 tokens

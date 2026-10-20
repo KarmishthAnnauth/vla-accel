@@ -164,6 +164,39 @@ Diff step 3's output against `reference_results/`.
 
 ---
 
+## Alpamayo 1.5
+
+Also a venv, not a container (`bench/alpamayo/README.md`, Environment).
+
+1. **Wheels and libraries.** torch 2.11 for CUDA 12.6, triton 3.6, flash-attn
+   2.8.3, the system TensorRT 10.3, and in `run.sh` an `LD_PRELOAD` of
+   CUDA 12.8's cuSOLVER. Every one of these changes on JetPack 7. The
+   preload exists because torch 2.11 calls
+   `cusolverDnXsyevBatched_bufferSize`, which 12.6's cuSOLVER does not
+   export. Drop it first on Thor and see whether it is still needed.
+2. **The TensorRT engines** (ViT + 36 prefill layers, ~15 GB) are locked to
+   the device, the TensorRT version and the input layout (1 camera × 4
+   frames, 828-token prompt). Rebuild them with `trt_build.py` (and
+   `trt_int8.py llm-build --alpha 0.7 --skip down_proj` for INT8). Without
+   engines the fast path runs in PyTorch: row 4 of the table, 915 ms on the
+   Orin.
+3. **What transfers:** draft decoding (3289 → 915 ms). It is arithmetic: a
+   decode step that reads every weight costs the same for 1 token as for 32.
+   That holds on any bandwidth-bound GPU, so this should stay the dominant
+   step on Thor.
+4. **What may flip:**
+   - TensorRT-Edge-LLM's Alpamayo action engine did not build on TensorRT
+     10.3, which is why the expert stays in PyTorch. A newer TensorRT on Thor
+     may lift that.
+   - The INT8 verdicts (prefill 0.53 m median, ViT and all-linears rejected)
+     come from activation outliers. As with MindDrive, FP8 is the format to try
+     if Thor has it.
+5. **Accuracy is judged on Bench2Drive scenes, not CARLA frames.** Use
+   `fast_check.py --b2d 3` (`B2D_DIR`): the three CARLA frames are too easy to
+   tell variants apart.
+
+---
+
 ## ReCogDrive
 
 ReCogDrive runs from a venv, not a container (`env/recogdrive`), so its port is

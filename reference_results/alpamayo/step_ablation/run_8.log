@@ -1,0 +1,40 @@
+row 8: rejected: INT8 vision encoder, gpu 1300 MHz
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:00, 15.94it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 20.56it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 19.84it/s]
+Some weights of Alpamayo1_5 were not initialized from the model checkpoint at /media/USER/EXTSSD/alpamayo-1.5 and are newly initialized: ['action_in_proj.sinus.0.freqs', 'action_in_proj.sinus.1.freqs', 'action_in_proj.timestep_fourier_encoder.freqs', 'action_space.accel_mean', 'action_space.accel_std', 'action_space.curvature_mean', 'action_space.curvature_std']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[load] 16 s, 20.6 GiB on GPU
+12 scenes from held-out Bench2Drive clips: ['DynamicObjectCrossing_Town11_Route20_Weather20', 'LaneChange_Town13_Route739_Weather25', 'ParkedObstacle_Town03_Route103_Weather25', 'VanillaSignalizedTurnEncounterGreenLight_Town12_Route869_Weather11']
+NvMapMemAllocInternalTagged: 1075072515 error 12
+NvMapMemHandleAlloc: error 0
+NvMapMemAllocInternalTagged: 1075072515 error 12
+NvMapMemHandleAlloc: error 0
+[10/12/2026-23:44:47] [TRT] [E] [defaultAllocator.cpp::allocate::31] Error Code 1: Cuda Runtime (out of memory)
+[10/12/2026-23:44:47] [TRT] [E] [myelinResourceManager.cpp::allocate::187] Error Code 2: OutOfMemory (Requested size was 385910016 bytes.)
+NvMapMemAllocInternalTagged: 1075072515 error 12
+NvMapMemHandleAlloc: error 0
+NvMapMemAllocInternalTagged: 1075072515 error 12
+NvMapMemHandleAlloc: error 0
+NvMapMemAllocInternalTagged: 1075072515 error 12
+NvMapMemHandleAlloc: error 0
+FastAlpamayo: TensorRT engines (int8 Q/DQ vision encoder (116 of 116 linears), fp16 prefill) loaded in 58 s
+FastAlpamayo: fused kernels in use: rope, silu-gate, rmsnorm, expert rmsnorm, expert rope, vit rope, expert layer
+FastAlpamayo ready: prompt 828 tokens, prefill window 860, KV buffer 972 rows, 4 images x 720 patches, 5 Euler steps, CUDA graphs captured, TensorRT vision encoder, TensorRT prefill in 72.8 s
+scene 0: dev 4.4273 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 1: dev 0.5650 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 2: dev 1.5963 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 3: dev 0.1097 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 4: dev 0.8648 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 5: dev 1.9974 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 6: dev 0.8485 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 7: dev 9.8106 m, same text False, {'tokens': 25, 'accepted': 25, 'decode_steps': 0, 'draft': 25}
+scene 8: dev 1.7736 m, same text True, {'tokens': 16, 'accepted': 16, 'decode_steps': 0, 'draft': 16}
+scene 9: dev 36.7439 m, same text False, {'tokens': 64, 'accepted': 0, 'decode_steps': 63, 'draft': 0}
+scene 10: dev 3.0521 m, same text False, {'tokens': 64, 'accepted': 0, 'decode_steps': 63, 'draft': 0}
+scene 11: dev 2.3085 m, same text False, {'tokens': 36, 'accepted': 32, 'decode_steps': 1, 'draft': 32}
+changing   1717.7 +- 1868.6 ms | prepare=2 vit=92 prefill=470 verify=1 decode=959 expert=187 to_traj=6 | tokens 25.0 accepted 8.4 steps 9.2
+steady     1865.0 +- 2447.0 ms | prepare=2 vit=91 prefill=472 verify=1 decode=1105 expert=187 to_traj=6 | tokens 26.4 accepted 15.4 steps 10.6
+done, gpu 1300 MHz, peak 22.0 GiB

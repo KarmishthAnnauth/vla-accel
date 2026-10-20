@@ -1,0 +1,14 @@
+[load] 62 s, 20.6 GiB on GPU
+yardstick: the bf16 model vs exact fp32: rel-L2 0.0462
+largest single-linear output errors: B9.fc2 0.599, B14.fc2 0.082, B16.fc2 0.075, B17.fc2 0.067, B15.fc2 0.059, D16.fc1 0.051
+quantised (simulation)       n    rel-L2 vs fp32: merged   deepstack (worst)
+  all linears                116        0.5761        0.5463
+  blocks only (no mergers)   108        0.5754        0.5415
+  all but fc2                 85        0.2549        0.2107
+  blocks but fc2              81        0.2528        0.1792
+  only qkv                    27        0.1785        0.1246
+  only fc1                    27        0.1763        0.1292
+  only fc2                    27        0.5472        0.5174
+  only mergers                 8        0.0397        0.1139
+vit INT8 engine (116 of 116 linears with Q/DQ, skip none): 90.9 ms, rel-L2 vs fp32 0.5961, built in 500 s | fp16 engine 129.3 ms, rel-L2 0.0281
+    kgen:Int8 x111, fusion:Half x85, kgen:Half x28, fusion:Int8 x27, gemm:Int8 x4, Reformat:Row major linear FP32 x4, NoOp:Row major linear FP32 x1, Reformat:Channel major FP16 format where channel % 8 == 0 with 3 spatial dimensions x1

@@ -1,0 +1,178 @@
+{
+ "row": 3,
+ "name": "+ fused kernels (torch.compile)",
+ "flags": {
+  "capture": true,
+  "speculate": false,
+  "fuse": true,
+  "trt_dir": ""
+ },
+ "timing": {
+  "changing": {
+   "mean": 3289.236095791845,
+   "sd": 1177.2013076783508,
+   "n": 24,
+   "stages": {
+    "prepare": 1.592993167074989,
+    "vit": 154.73710354126524,
+    "prefill": 529.6216348334989,
+    "verify": 0.5268419581625494,
+    "decode": 2407.814988333636,
+    "expert": 187.64744704155115,
+    "to_traj": 6.279302291810988,
+    "tokens": 23.083333333333332,
+    "accepted": 0.0,
+    "decode_steps": 23.083333333333332
+   }
+  },
+  "steady": {
+   "mean": 3289.236095791845,
+   "sd": 1177.2013076783508,
+   "n": 24,
+   "stages": {
+    "prepare": 1.592993167074989,
+    "vit": 154.73710354126524,
+    "prefill": 529.6216348334989,
+    "verify": 0.5268419581625494,
+    "decode": 2407.814988333636,
+    "expert": 187.64744704155115,
+    "to_traj": 6.279302291810988,
+    "tokens": 23.083333333333332,
+    "accepted": 0.0,
+    "decode_steps": 23.083333333333332
+   }
+  }
+ },
+ "scenes": [
+  {
+   "dev_m": 0.02188277244567871,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.064361572265625,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.11002731323242188,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.00684356689453125,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.010420218110084534,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.06742095947265625,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.015569686889648438,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 10.272789001464844,
+   "same_text": false,
+   "stats": {
+    "tokens": 37,
+    "accepted": 0,
+    "decode_steps": 37,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.14986419677734375,
+   "same_text": true,
+   "stats": {
+    "tokens": 16,
+    "accepted": 0,
+    "decode_steps": 16,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.3846435546875,
+   "same_text": true,
+   "stats": {
+    "tokens": 49,
+    "accepted": 0,
+    "decode_steps": 49,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.11030983924865723,
+   "same_text": true,
+   "stats": {
+    "tokens": 24,
+    "accepted": 0,
+    "decode_steps": 24,
+    "draft": 0
+   }
+  },
+  {
+   "dev_m": 0.028629302978515625,
+   "same_text": true,
+   "stats": {
+    "tokens": 39,
+    "accepted": 0,
+    "decode_steps": 39,
+    "draft": 0
+   }
+  }
+ ],
+ "traj": {
+  "median_m": 0.06589126586914062,
+  "worst_same_text_m": 0.3846435546875,
+  "worst_m": 10.272789001464844,
+  "mean_m": 0.9368968320389589,
+  "same_text": 11,
+  "scenes": 12
+ },
+ "gpu_mhz": 1300,
+ "peak_gib": 24.517260551452637
+}

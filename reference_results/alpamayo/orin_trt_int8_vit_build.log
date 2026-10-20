@@ -1,0 +1,26 @@
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:00, 16.09it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 20.67it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 19.96it/s]
+Some weights of Alpamayo1_5 were not initialized from the model checkpoint at /media/USER/EXTSSD/alpamayo-1.5 and are newly initialized: ['action_in_proj.sinus.0.freqs', 'action_in_proj.sinus.1.freqs', 'action_in_proj.timestep_fourier_encoder.freqs', 'action_space.accel_mean', 'action_space.accel_std', 'action_space.curvature_mean', 'action_space.curvature_std']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[load] 13 s, 20.6 GiB on GPU
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/common.py:56: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  torch.from_numpy(np.asarray(Image.open(f).convert("RGB"))).permute(2, 0, 1)
+yardstick: the bf16 model vs exact fp32: rel-L2 0.0361
+largest single-linear output errors: B9.fc2 0.443, B14.fc2 0.076, B16.fc2 0.066, B15.fc2 0.061, B17.fc2 0.058, D16.fc1 0.057
+quantised (simulation)       n    rel-L2 vs fp32: merged   deepstack (worst)
+  all linears                116        0.5082        0.4994
+  blocks only (no mergers)   108        0.5072        0.4920
+  all but fc2                 85        0.2348        0.2135
+  blocks but fc2              81        0.2331        0.1790
+  only qkv                    27        0.1757        0.1325
+  only fc1                    27        0.1396        0.1203
+  only fc2                    27        0.4879        0.4815
+  only mergers                 8        0.0361        0.1194
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/trt_int8.py:554: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+  torch.onnx.export(vit, (x,), os.path.join(work, "vit.onnx"), opset_version=17, dynamo=False,
+[10/12/2026-23:19:53] [TRT] [W] Using an engine plan file across different models of devices is not recommended and is likely to affect performance or even cause errors.
+vit INT8 engine (116 of 116 linears with Q/DQ, skip none): 90.8 ms, rel-L2 vs fp32 0.5054, built in 386 s | fp16 engine 129.4 ms, rel-L2 0.0162
+    kgen:Int8 x111, fusion:Half x85, kgen:Half x28, fusion:Int8 x27, gemm:Int8 x4, Reformat:Row major linear FP32 x4, NoOp:Row major linear FP32 x1, Reformat:Channel major FP16 format where channel % 8 == 0 with 3 spatial dimensions x1

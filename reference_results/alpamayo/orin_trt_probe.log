@@ -1,0 +1,28 @@
+[load] 14 s, 20.6 GiB on GPU
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/common.py:56: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+/home/USER/vla_benchmarking/benchmarking/alpamayo-autoware/src/alpamayo_ros/tools/trt_probe.py:210: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+[vit] exported ONNX, 2203 MiB
+built /media/USER/EXTSSD/alpamayo-1.5-trt/vit/vit_fp16.engine (1109 MiB) in 138 s
+[vit] TensorRT fp16 129.23 ms | PyTorch fast path 155.00 ms | fp32 eager 1062.67 ms | rel-L2 vs fp32 0.0281 (the bf16 fast path differs from fp32 by 0.0371)
+Traceback (most recent call last):
+RuntimeError: Expected all tensors to be on the same device, but got index is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA__index_select)
+[load] 44 s, 20.6 GiB on GPU
+[layer] exported ONNX, 736 MiB
+[libprotobuf WARNING google/protobuf/io/coded_stream.cc:604] Reading dangerously large protocol message.  If the message turns out to be larger than 2147483647 bytes, parsing will be halted for security reasons.  To increase the limit (or to disable these warnings), see CodedInputStream::SetTotalBytesLimit() in google/protobuf/io/coded_stream.h.
+[libprotobuf WARNING google/protobuf/io/coded_stream.cc:81] The total number of bytes read was 772681748
+[10/03/2026-14:43:13] [TRT] [W] Detected layernorm nodes in FP16.
+[10/03/2026-14:43:13] [TRT] [W] Running layernorm after self-attention with FP16 Reduce or Pow may cause overflow. Forcing Reduce or Pow Layers in FP32 precision, or exporting the model to use INormalizationLayer (available with ONNX opset >= 17) can help preserving accuracy.
+built /media/USER/EXTSSD/alpamayo-1.5-trt/layer/layer_fp16.engine (368 MiB) in 154 s
+[layer] TensorRT fp16 12.28 ms | PyTorch fast path 14.67 ms | fp32 eager 164.38 ms | rel-L2 vs fp32 0.0007
+[expert] exported ONNX, 241 MiB
+[10/03/2026-14:45:52] [TRT] [W] Detected layernorm nodes in FP16.
+[10/03/2026-14:45:52] [TRT] [W] Running layernorm after self-attention with FP16 Reduce or Pow may cause overflow. Forcing Reduce or Pow Layers in FP32 precision, or exporting the model to use INormalizationLayer (available with ONNX opset >= 17) can help preserving accuracy.
+built /media/USER/EXTSSD/alpamayo-1.5-trt/expert/expert_fp16.engine (121 MiB) in 51 s
+[expert] TensorRT fp16 1.09 ms | PyTorch fast path 1.04 ms | fp32 eager 4.61 ms | rel-L2 vs fp32 0.0006
+[load] 60 s, 20.6 GiB on GPU
+[expert2] exported ONNX, 241 MiB
+built /media/USER/EXTSSD/alpamayo-1.5-trt/expert2/expert2_fp16.engine (121 MiB) in 8 s
+[expert2] TensorRT fp16 0.97 ms | PyTorch fast path 1.04 ms | fp32 eager 5.66 ms | rel-L2 vs fp32 0.0006
+[expert2_level5] exported ONNX, 241 MiB
+built /media/USER/EXTSSD/alpamayo-1.5-trt/expert2_level5/expert2_level5_fp16.engine (121 MiB) in 220 s
+[expert2_level5] TensorRT fp16 0.97 ms | PyTorch fast path 1.04 ms | fp32 eager 5.76 ms | rel-L2 vs fp32 0.0006
