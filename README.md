@@ -7,13 +7,13 @@ the **Bench2Drive mini** dataset, environment and Orin reference results.
 
 ## Results (Jetson AGX Orin)
 
-| Model | Baseline | Optimised | Speedup | Trajectory deviation |
+| Model | Baseline (ms) | Optimized (ms) | Speedup | Trajectory deviation mean (m) |
 |---|---:|---:|---:|---|
-| [SimLingo](vla_accel/simlingo) | 3538 ms | **321 ms** | **11.0×** | 0.028 m max route |
-| [ORION](vla_accel/orion)| 2030 ms | **~1000 ms** | **~2.0×** | < 1 cm |
-| [MindDrive](vla_accel/minddrive) | 2318 ms (fp32) | **874 ms** | **2.65×** | 0.05–0.09 m |
-| [ReCogDrive](vla_accel/recogdrive)| 1255 ms | **615 ms** | **2.04×** | none (VLM bit-identical, plan ~1e-5 m) |
-| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 ms | **836 ms** | **5.0×** | 0.14 m median, 1.01 m worst |
+| [SimLingo](vla_accel/simlingo) | 3538 | **321** | **11.0×** | 0.028 |
+| [ORION](vla_accel/orion)| 2030| **1000** | **~2.0×** | 0.001 |
+| [MindDrive](vla_accel/minddrive) | 2318  | **874** | **2.65×** | 0.07 |
+| [ReCogDrive](vla_accel/recogdrive)| 1255| **615** | **2.04×** | -- |
+| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 | **836** | **5.0×** | 0.14|
 
 
 The README in each model folder gives the step-by-step tables, opt-in results (TensorRT, INT8)
