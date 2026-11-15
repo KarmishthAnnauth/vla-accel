@@ -1,0 +1,17 @@
+# Alpamayo 1.5 on Jetson AGX Orin (JetPack R36.4.7), in a venv, no container.
+# CUDA 12.6 runtime, plus libcusolver from CUDA 12.8 preloaded (see run.sh).
+# torch / torchvision / triton / flash-attn are Jetson aarch64 CUDA 12.6 wheels;
+# only major.minor of torch, torchvision and triton was recorded.
+torch==2.11.*
+torchvision==0.26.*
+triton==3.6.*
+flash-attn==2.8.3
+transformers==4.57.1
+onnx==1.23.1
+einops==0.8.2
+# version not recorded:
+numpy
+opencv-python
+# TensorRT 10.3.0 Python bindings come from JetPack (system site-packages), not pip.
+# The upstream package, installed editable from NVIDIA's Alpamayo 1.5 release:
+#   pip install -e "$ALPAMAYO_SRC"

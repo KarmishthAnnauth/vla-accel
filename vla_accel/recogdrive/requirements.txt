@@ -1,0 +1,29 @@
+# ReCogDrive on Jetson AGX Orin (JetPack R36.4.7): a Python 3.10 venv, no container.
+# Built by env/setup_venv.sh with requirements-jetson.txt as constraints (torch, torchvision, numpy stay the
+# Jetson builds) and requirements-nodeps.txt installed with --no-deps. Versions follow the ReCogDrive repo's
+# pins where it has one.
+
+# InternVL backbone (internvl_chat/internvl_chat.txt)
+transformers==4.37.2
+tokenizers==0.15.1
+accelerate==0.34.2
+peft==0.10.0
+timm==0.9.12
+einops==0.6.1
+sentencepiece==0.1.99
+
+# Diffusion planner and navsim
+diffusers==0.31.0
+pytorch-lightning==2.6.6
+omegaconf==2.3.0
+pyquaternion==0.9.9
+# In the venv so Ubuntu's system builds (compiled for numpy 1.21) are not picked up.
+scipy==1.15.3
+matplotlib==3.10.9
+
+# Bench2Drive input (vla_accel.common.b2d)
+opencv-python-headless==4.10.0.84
+
+# TensorRT / INT8 scripts (opt-in): tensorrt comes from JetPack (system site-packages);
+# onnx is needed for the ONNX export and Q/DQ insertion (version not recorded).
+onnx

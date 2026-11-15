@@ -1,0 +1,8 @@
+# ORION runs in the container image karmishthannauth/orion_env_ros:v01 (arm64, JetPack R36.4.7).
+# The image ships a pre-built /root/Orion with compiled mmcv ops; nothing is pip-installed on top.
+# Relevant versions in the image, for reference only:
+#   torch==2.4 (NVIDIA PyTorch 24.07 build, CUDA 12)
+#   transformers==4.31
+#   flash-attn==2.7
+#   tensorrt==8.6.2
+#   peft, pyquaternion, opencv-python, Pillow, numpy, onnx (as shipped with the image)

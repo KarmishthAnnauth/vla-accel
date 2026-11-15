@@ -1,0 +1,9 @@
+# SimLingo runs in a container; nothing is pip-installed on top of it.
+#   karmishthannauth/simlingo:humble-cyclonedd  (arm64, the image all measurements used)
+#   built FROM karmishthannauth/simlingo_env:v01, which provides the Python stack below;
+#   the humble-cyclonedd layer only adds ROS 2, which these scripts do not use.
+# Pinned versions in the image, for reference (JetPack R36.4.7, Jetson AGX Orin):
+#   torch==2.2.0a0+6a974be   (CUDA 12.2, NVIDIA Jetson build)
+#   transformers==4.46.3
+#   peft, hydra-core, omegaconf, opencv-python, pillow, numpy, huggingface_hub
+#   triton: not installed (so torch.compile / inductor is unavailable)

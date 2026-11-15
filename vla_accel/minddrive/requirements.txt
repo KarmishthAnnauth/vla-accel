@@ -1,0 +1,17 @@
+# MindDrive runs in the container built by docker/Dockerfile (karmishthannauth/minddrive_env:v01), arm64, Jetson AGX Orin.
+# Base image karmishthannauth/orion_env_ros:v01 provides python 3.10, torch 2.4.0a0 (NVIDIA nv24.07 wheel, JetPack R36.4),
+# the ORION mmcv build, peft, flash-attn, opencv, numpy and pyquaternion. Installed on top of it:
+transformers==4.45.2
+# installed with --no-deps (MindDrive imports them at module level):
+stable_baselines3
+gymnasium
+farama-notifications
+cloudpickle
+lyft_dataset_sdk
+fire
+cachetools
+pyzmq
+black
+mypy_extensions
+pathspec
+pytokens
