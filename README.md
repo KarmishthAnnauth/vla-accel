@@ -7,17 +7,17 @@ the **Bench2Drive mini** dataset, environment and Orin reference results.
 
 ## Results (Jetson AGX Orin)
 
-| Model | Baseline (ms) | Optimized (ms) | Speedup |
-|---|---:|---:|---:|---|
-| [SimLingo](vla_accel/simlingo) | 3538 | **321** | **11.0×** | 
-| [ORION](vla_accel/orion)| 2030| **1000** | **~2.0×** | 
-| [MindDrive](vla_accel/minddrive) | 2318  | **874** | **2.65×** | 
-| [ReCogDrive](vla_accel/recogdrive)| 1255| **615** | **2.04×** | 
-| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 | **836** | **5.0×** |
+| Model | Baseline (s) | Optimized (s) | Speedup |
+|---|---:|---:|---:|
+| [SimLingo](vla_accel/simlingo) | 3.77 | **0.25** | **15.1×** |
+| [ORION](vla_accel/orion) | 2.03 | **0.96** | **2.1×** |
+| [MindDrive](vla_accel/minddrive) | 2.69 | **0.88** | **3.1×** |
+| [ReCogDrive](vla_accel/recogdrive) | 1.27 | **0.66** | **1.9×** |
+| [Alpamayo 1.5](vla_accel/alpamayo) | 4.14 | **0.84** | **4.9×** |
 
 
-The README in each model folder gives the step-by-step tables, opt-in results (TensorRT, INT8)
-and negative results.
+The README in each model folder gives the step-by-step table and the optional configurations
+(TensorRT, INT8, lite vision).
 
 ## Layout
 
@@ -49,13 +49,14 @@ are mounted and which environment variables point to them.
 
 ## Running
 
-1. **Pin the clocks.** Unpinned clocks change the result (SimLingo's baseline SD was 574 ms):
+1. **Pin the clocks.** Unpinned clocks change the result:
 
    ```bash
    sudo nvpmodel -m 0 && sudo jetson_clocks
    ```
 
-2. **Get Bench2Drive mini.** Extract the clips (`<clip>/camera/rgb_*/%05d.jpg`,
+2. **Get Bench2Drive mini.** Download it from
+   [Thinklab-SJTU/Bench2Drive](https://github.com/Thinklab-SJTU/Bench2Drive). Extract the clips (`<clip>/camera/rgb_*/%05d.jpg`,
    `<clip>/anno/%05d.json.gz`) into one folder and export `B2D_DIR=/path/to/bench2drive-mini`.
 
 3. **Run a model's bench** through its `run.sh`, which starts the right container or venv and
