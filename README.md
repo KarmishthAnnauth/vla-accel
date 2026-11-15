@@ -7,13 +7,13 @@ the **Bench2Drive mini** dataset, environment and Orin reference results.
 
 ## Results (Jetson AGX Orin)
 
-| Model | Baseline (ms) | Optimized (ms) | Speedup | Trajectory deviation mean (m) |
+| Model | Baseline (ms) | Optimized (ms) | Speedup |
 |---|---:|---:|---:|---|
-| [SimLingo](vla_accel/simlingo) | 3538 | **321** | **11.0×** | 0.028 |
-| [ORION](vla_accel/orion)| 2030| **1000** | **~2.0×** | 0.001 |
-| [MindDrive](vla_accel/minddrive) | 2318  | **874** | **2.65×** | 0.07 |
-| [ReCogDrive](vla_accel/recogdrive)| 1255| **615** | **2.04×** | -- |
-| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 | **836** | **5.0×** | 0.14|
+| [SimLingo](vla_accel/simlingo) | 3538 | **321** | **11.0×** | 
+| [ORION](vla_accel/orion)| 2030| **1000** | **~2.0×** | 
+| [MindDrive](vla_accel/minddrive) | 2318  | **874** | **2.65×** | 
+| [ReCogDrive](vla_accel/recogdrive)| 1255| **615** | **2.04×** | 
+| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 | **836** | **5.0×** |
 
 
 The README in each model folder gives the step-by-step tables, opt-in results (TensorRT, INT8)
