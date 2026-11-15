@@ -15,18 +15,6 @@ the **Bench2Drive mini** dataset, environment and Orin reference results.
 | [ReCogDrive](vla_accel/recogdrive) (InternVL3-2B + diffusion planner) | 1255 ms | **615 ms** | **2.04×** | none (VLM bit-identical, plan ~1e-5 m) |
 | [Alpamayo 1.5](vla_accel/alpamayo) (Qwen3-VL 8B + diffusion action expert) | 4142 ms | **836 ms** | **5.0×** | 0.14 m median, 1.01 m worst |
 
-Times are per frame. The bottleneck was different for each model:
-
-- **SimLingo** was not compute-bound. Pinning the GPU clock gave 3.77×. A KV cache, a
-  CUDA-graph decode step and running the driving head as a continuation gave another 2.92×.
-- **ORION** is GPU-bound, and half of its kernel time is memory-bound element-wise work.
-  `torch.compile` fusion gave most of the gain (ViT 883 → 434 ms).
-- **MindDrive** reuses ORION's vision and head speedups and needs its own LLM work. INT8
-  is opt-in because Qwen2.5-3B's activation outliers move the plan by ≥ 0.4 m.
-- **ReCogDrive** gains from CUDA graphs on a launch-bound planner, from skipping an
-  unused LM head, and from faster bf16 GEMM calls. All of it stays bit-exact.
-- **Alpamayo 1.5** is decode-bound. Draft decoding checks the previous frame's reasoning
-  inside the prefill pass, so a steady scene needs almost no decode steps.
 
 The README in each model folder gives the step-by-step tables, opt-in results (TensorRT, INT8)
 and negative results.
@@ -85,10 +73,6 @@ are mounted and which environment variables point to them.
    Every bench compares the accelerated model against the unmodified one on the same inputs,
    with the same sampler noise. It reports per-stage timing and trajectory deviation.
 
-**Note:** the reference numbers above were recorded before every bench was switched to
-Bench2Drive input. SimLingo, MindDrive, ORION's cumulative table and ReCogDrive were measured
-on CARLA frames; ORION's opt-ins and Alpamayo were measured on Bench2Drive clips. A re-run on
-Bench2Drive mini will give close but not identical numbers.
 
 ## Licence
 
