@@ -9,11 +9,11 @@ the **Bench2Drive mini** dataset, environment and Orin reference results.
 
 | Model | Baseline | Optimised | Speedup | Trajectory deviation |
 |---|---:|---:|---:|---|
-| [SimLingo](vla_accel/simlingo) (InternVL2-1B + driving head) | 3538 ms | **321 ms** | **11.0×** | 0.028 m max route |
-| [ORION](vla_accel/orion) (EVA-ViT-L + LLaVA-LLaMA-7B) | 2030 ms | **~1000 ms** | **~2.0×** | < 1 cm |
-| [MindDrive](vla_accel/minddrive) (EVA-ViT + LLaVA-Qwen2.5-3B, 2 LoRA experts) | 2318 ms (fp32) | **874 ms** | **2.65×** | 0.05–0.09 m |
-| [ReCogDrive](vla_accel/recogdrive) (InternVL3-2B + diffusion planner) | 1255 ms | **615 ms** | **2.04×** | none (VLM bit-identical, plan ~1e-5 m) |
-| [Alpamayo 1.5](vla_accel/alpamayo) (Qwen3-VL 8B + diffusion action expert) | 4142 ms | **836 ms** | **5.0×** | 0.14 m median, 1.01 m worst |
+| [SimLingo](vla_accel/simlingo) | 3538 ms | **321 ms** | **11.0×** | 0.028 m max route |
+| [ORION](vla_accel/orion)| 2030 ms | **~1000 ms** | **~2.0×** | < 1 cm |
+| [MindDrive](vla_accel/minddrive) | 2318 ms (fp32) | **874 ms** | **2.65×** | 0.05–0.09 m |
+| [ReCogDrive](vla_accel/recogdrive)| 1255 ms | **615 ms** | **2.04×** | none (VLM bit-identical, plan ~1e-5 m) |
+| [Alpamayo 1.5](vla_accel/alpamayo) | 4142 ms | **836 ms** | **5.0×** | 0.14 m median, 1.01 m worst |
 
 
 The README in each model folder gives the step-by-step tables, opt-in results (TensorRT, INT8)
